@@ -39,6 +39,9 @@ public class HangmanFrame extends JFrame implements ActionListener {
         hmF.createButtons();
         hmF.createPanels();
         hmF.configFrame();
+        
+      //  WordGeneration generate = new WordGeneration();
+      //  generate.genaratedWord();
 
     }
 
