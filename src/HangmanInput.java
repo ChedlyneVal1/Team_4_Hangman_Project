@@ -37,15 +37,15 @@ public class HangmanInput implements ActionListener {
 		
 		//TODO this section is probably not needed.
 		inputLabel = new JLabel();
-    	inputLabel.setBounds(0, 0, 450, 165);
-    	inputLabel.setVisible(true);
+    		inputLabel.setBounds(0, 0, 450, 165);
+    		inputLabel.setVisible(true);
     	
-    	inputPanel = new JPanel();
-    	inputPanel.setLayout(null);;
-    	inputPanel.setBackground(Color.GRAY);
-    	inputPanel.setBounds(350, 400, 450, 165);
-    	inputPanel.setVisible(true);
-    	inputPanel.add(textField);
+    		inputPanel = new JPanel();
+    		inputPanel.setLayout(null);;
+    		inputPanel.setBackground(Color.GRAY);
+    		inputPanel.setBounds(350, 400, 450, 165);
+    		inputPanel.setVisible(true);
+    		inputPanel.add(textField);
 	}
 	
 	/**

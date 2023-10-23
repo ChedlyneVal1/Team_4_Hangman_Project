@@ -25,16 +25,16 @@ public class HangmanDrawing {
 	private void init() {
 		//create the drawingLabel
 		drawingLabel = new JLabel();
-        drawingLabel.setBounds(0, 50, 350, 550);
-        drawingLabel.setVisible(true);		
+        	drawingLabel.setBounds(0, 50, 350, 550);
+        	drawingLabel.setVisible(true);		
 		
-        //create the drawingPanel
+        	//create the drawingPanel
 		drawingPanel = new JPanel();
-    	drawingPanel.setLayout(null);
-    	drawingPanel.setBackground(Color.WHITE);
-    	drawingPanel.setBounds(0, 50, 350, 550);
-        drawingPanel.setVisible(true);
-        drawingPanel.add(drawingLabel);
+    		drawingPanel.setLayout(null);
+    		drawingPanel.setBackground(Color.WHITE);
+    		drawingPanel.setBounds(0, 50, 350, 550);
+        	drawingPanel.setVisible(true);
+        	drawingPanel.add(drawingLabel);
 	}
 	
 	/**

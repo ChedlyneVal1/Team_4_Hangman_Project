@@ -62,13 +62,13 @@ public class HangmanWordPanel {
 		wordLabel.setVisible(true);
 		wordLabel.setFont(font);
     	
-    	wordPanel = new JPanel();
-    	wordPanel.setLayout(null);
-    	wordPanel.setBackground(Color.LIGHT_GRAY);
-    	wordPanel.setBounds(350, 50, 450, 350);
-    	wordPanel.setVisible(true);
-    	wordPanel.add(dashLabel);
-    	wordPanel.add(wordLabel);    	
+    		wordPanel = new JPanel();
+    		wordPanel.setLayout(null);
+    		wordPanel.setBackground(Color.LIGHT_GRAY);
+    		wordPanel.setBounds(350, 50, 450, 350);
+    		wordPanel.setVisible(true);
+    		wordPanel.add(dashLabel);
+    		wordPanel.add(wordLabel);    	
 	}
 	
 	/**
