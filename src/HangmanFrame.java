@@ -10,23 +10,24 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JPanel btnTogglePanel;
     private static JLabel btnToggleLabel;
     private static JButton btnToggle;
+    
+    private HangmanDrawing drawing;
+    private HangmanInput input;
+    private HangmanWordPanel word;
 
 
 
-    ImageIcon image = new ImageIcon("start.png");
+    private ImageIcon image = new ImageIcon("start.png");
 
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-
+    public void actionPerformed(ActionEvent e) {    	
         if(e.getSource() == btnToggle){
-            if (btnToggle.getText().equals("Play")){
-                btnToggle.setText("Back");
-                gameStartLabel.setVisible(false);
+            if (btnToggle.getText().equals("Play")){      
+                configGameUI();
+                
             }else {
-                btnToggle.setText("Play");
-                gameStartLabel.setVisible(true);
+            	configMainUI();
             }
         }
     }
@@ -74,10 +75,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
 
         //label that will hold the buttons
-        btnToggleLabel = new JLabel();
-        btnToggleLabel.setBounds(0, 0, 800, 50);
-        btnToggleLabel.setOpaque(true);
-        btnToggleLabel.setVisible(true);
+        //TODO I don't think any of this is necessary
+        //btnToggleLabel = new JLabel();
+        //btnToggleLabel.setBounds(0, 0, 800, 50);
+        //btnToggleLabel.setOpaque(true);
+        //btnToggleLabel.setVisible(true);
     }
 
 
@@ -104,6 +106,85 @@ public class HangmanFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
     }
+    
+    
+    
+    
+   /**
+    * A method to create the other objects needed for the game to function.
+    */
+    private void createComponents() {
+    	drawing = new HangmanDrawing(this);
+    	word = new HangmanWordPanel(this);
+    	input = new HangmanInput(this);
+    	
+    	word.setWord("Hello");//TODO delete or update.
+    }
+    
+    public void guessLetter(String s) {
+    	word.guessLetter(s);
+    }
+    
+    /**
+     * A method to remove the UI elements of the Game Screen and add the UI elements of the Main Screen.
+     */
+    private void configMainUI() {
+    	hideGameUI();
+    	addMainUI();	
+    }
+    
+    /**
+     * A method to remove the UI elements of the Main Screen and add the UI elements of the Game Screen.
+     */
+    private void configGameUI() {
+    	hideMainUI();
+    	
+    	createComponents();
+    	addGameUI();
+    }
+    
+    /**
+     * A method to add the UI elements to the Main Screen.
+     */
+    private void addMainUI() {
+    	createLabels();
+    	createButtons();
+        createPanels();
+        configFrame();
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    /**
+     * A method to add the UI elements to the Game Screen.
+     */
+    private void addGameUI() {
+    	drawing.addUI();
+    	input.addUI();
+    	word.addUI();
+    	
+    	this.revalidate();
+    	this.repaint();
+    }
+    
+    /**
+     * A method to remove the UI elements of the Main Screen.
+     */
+    private void hideMainUI() {
+    	this.remove(gameStartPanel);
+    	btnToggle.setText("Back");
+    }
+    
+    /**
+     * A method to remove the UI elements of the Game Screen.
+     */
+    private void hideGameUI() {
+    	drawing.removeUI();
+    	input.removeUI();
+    	word.removeUI();
+    	
+    	this.remove(btnTogglePanel);
+    }
+    
 }
-
-
