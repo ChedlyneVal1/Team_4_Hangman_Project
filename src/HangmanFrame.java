@@ -40,6 +40,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
         hmF.createButtons();
         hmF.createPanels();
         hmF.configFrame();
+        
+    /*	WordGeneration words = new WordGeneration();
+    	String x = words.genaratedWord();
+    	System.out.println(x);
+    	//word.setWord(x);*/
     }
 
 
@@ -118,7 +123,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	word = new HangmanWordPanel(this);
     	input = new HangmanInput(this);
     	
-    	word.setWord("Hello");//TODO delete or update.
+    	// Get the WordGeneration instance and set the word in HangmanWordPanel
+    	WordGeneration wordGenerator = WordGeneration.getInstance();
+        String generatedWord = wordGenerator.generateWord();
+        word.setWord(generatedWord);
+    	
     }
     
     public void guessLetter(String s) {

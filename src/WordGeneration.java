@@ -6,46 +6,33 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class WordGeneration {
-	// Singleton variable
-    private static WordGeneration instance = null; 
-	private List<String> words = new ArrayList<>();
-    
-    private WordGeneration()
-    {
-    	try {
-    		this.init();
-    	} catch (FileNotFoundException ex) {
-    		// Handle the exception
-    	}
+
+    private static WordGeneration instance;
+    private List<String> words;
+
+    private WordGeneration() {
+        words = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(".\\Team_4_Hangman_Project\\src\\Words.txt"));
+            while (scanner.hasNext()) {
+                words.add(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-    
-    private void init() throws FileNotFoundException
-    {
-    	Scanner scanner = new Scanner(new File(".\\Team_4_Hangman_Project\\src\\Words.txt"));
-		
-		while (scanner.hasNext())
-		{
-			words.add((scanner.nextLine()));
-		}
+
+    public static WordGeneration getInstance() {
+        if (instance == null) {
+            instance = new WordGeneration();
+        }
+        return instance;
     }
-    
-    // Call to get the instance of the singleton WordGeneration
-    public static synchronized WordGeneration getInstance() 
-    { 
-        if (instance == null) 
-        	instance = new WordGeneration(); 
-  
-        return instance; 
-    } 
-    
-	public String genaratedWord() 
-	{	
-		Random random = new Random();
-		
-		String word = words.get(random.nextInt(words.size()));
-		
-		//System.out.println(word);
-		return word;
-		
-	}
+
+    public String generateWord() {
+        Random random = new Random();
+        String word = words.get(random.nextInt(words.size()));
+        return word;
+    }
 }
