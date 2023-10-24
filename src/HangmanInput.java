@@ -36,7 +36,7 @@ public class HangmanInput implements ActionListener {
 		textField.setFont(new Font("Serif", Font.BOLD, 40));
 		
 		//TODO this section is probably not needed.
-		inputLabel = new JLabel();
+			inputLabel = new JLabel();
     		inputLabel.setBounds(0, 0, 450, 165);
     		inputLabel.setVisible(true);
     	
