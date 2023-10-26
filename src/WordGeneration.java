@@ -21,7 +21,7 @@ public class WordGeneration {
     
     private void init() throws FileNotFoundException
     {
-    	Scanner scanner = new Scanner(new File(".\\Team_4_Hangman_Project\\src\\Words.txt"));
+    	Scanner scanner = new Scanner(new File("..\\Team_4_Hangman_Project\\src\\Words.txt"));
 		
 		while (scanner.hasNext())
 		{
