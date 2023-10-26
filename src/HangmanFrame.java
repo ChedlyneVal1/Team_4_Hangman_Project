@@ -10,7 +10,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JPanel btnTogglePanel;
     private static JLabel btnToggleLabel;
     private static JButton btnToggle;
-    
+    private static JButton btnExit;
     private HangmanDrawing drawing;
     private HangmanInput input;
     private HangmanWordPanel word;
@@ -29,7 +29,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
             }else {
             	configMainUI();
             }
+        } else if (e.getSource()== btnExit) {
+            this.dispose();
         }
+
     }
 
 
@@ -65,6 +68,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnTogglePanel.setLayout(null);
         btnTogglePanel.setBackground(Color.WHITE);
         btnTogglePanel.add(btnToggle);
+        btnTogglePanel.add(btnExit);
         btnTogglePanel.setBounds(0, 0, 800, 50);
         btnTogglePanel.setVisible(true);
     }
@@ -96,6 +100,12 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnToggle.setBounds(340, 15, 100, 30);
         btnToggle.setVisible(true);
         btnToggle.addActionListener(this);
+
+        btnExit = new JButton("Exit");
+        btnExit.setBounds(455, 15, 100, 30);
+        btnExit.setVisible(true);
+        btnExit.addActionListener(this);
+
 
 
     }
