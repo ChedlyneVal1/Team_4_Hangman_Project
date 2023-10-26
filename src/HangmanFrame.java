@@ -10,25 +10,32 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JPanel btnTogglePanel;
     private static JLabel btnToggleLabel;
     private static JButton btnToggle;
+    private static JButton btnReplay;
     private static JButton btnExit;
+
     private HangmanDrawing drawing;
     private HangmanInput input;
     private HangmanWordPanel word;
-
+    private WordGeneration wordGen = WordGeneration.getInstance();
+    private String wordString;
 
 
     private ImageIcon image = new ImageIcon("start.png");
 
 
     @Override
-    public void actionPerformed(ActionEvent e) {    	
+    public void actionPerformed(ActionEvent e) {
+    	
+    	
         if(e.getSource() == btnToggle){
             if (btnToggle.getText().equals("Play")){      
-                configGameUI();
+                configGameUI(true);
                 
             }else {
             	configMainUI();
             }
+        } else if (e.getSource() == btnReplay) {
+        	replayPressed();
         } else if (e.getSource()== btnExit) {
             this.dispose();
         }
@@ -44,7 +51,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
         hmF.createPanels();
         hmF.configFrame();
     }
-
 
 
     private void createPanels()
@@ -63,6 +69,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnTogglePanel.setLayout(null);
         btnTogglePanel.setBackground(Color.WHITE);
         btnTogglePanel.add(btnToggle);
+        btnTogglePanel.add(btnReplay);
         btnTogglePanel.add(btnExit);
         btnTogglePanel.setBounds(0, 0, 800, 50);
         btnTogglePanel.setVisible(true);
@@ -95,6 +102,12 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnToggle.setBounds(340, 15, 100, 30);
         btnToggle.setVisible(true);
         btnToggle.addActionListener(this);
+        
+        //initiates button that Replays
+        btnReplay = new JButton("Replay");
+        btnReplay.setBounds(225, 15, 100, 30);
+        btnReplay.setVisible(false);
+        btnReplay.addActionListener(this);
 
         btnExit = new JButton("Exit");
         btnExit.setBounds(455, 15, 100, 30);
@@ -118,17 +131,18 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     
-    
-    
    /**
     * A method to create the other objects needed for the game to function.
     */
-    private void createComponents() {
+    private void createComponents(boolean newWord) {
     	drawing = new HangmanDrawing(this);
-    	word = new HangmanWordPanel(this);
+        word = new HangmanWordPanel(this);
     	input = new HangmanInput(this);
     	
-    	word.setWord("Hello");//TODO delete or update.
+    	if(newWord)
+    		wordString = wordGen.genaratedWord();
+    		
+    	word.setWord(wordString);
     }
     
     public void guessLetter(String s) {
@@ -146,10 +160,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
     /**
      * A method to remove the UI elements of the Main Screen and add the UI elements of the Game Screen.
      */
-    private void configGameUI() {
+    private void configGameUI(boolean newWord) {
     	hideMainUI();
     	
-    	createComponents();
+    	createComponents(newWord);
     	addGameUI();
     }
     
@@ -184,6 +198,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private void hideMainUI() {
     	this.remove(gameStartPanel);
     	btnToggle.setText("Back");
+        btnReplay.setVisible(true);
     }
     
     /**
@@ -195,6 +210,33 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	word.removeUI();
     	
     	this.remove(btnTogglePanel);
+        btnReplay.setVisible(false);
+    }
+    
+    /**
+     * A method to handle replaying the game
+     */
+    private void replayPressed() {
+    	// Create a dialog window asking the user if they want to
+    	// start over with a new word.
+    	Object[] options = {"New word",
+    	                    "Same word",
+    	                    "Cancel"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "How do you want to restart?",
+    	    "Replay",
+    	    JOptionPane.YES_NO_CANCEL_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[2]);
+    	
+    	if(n!=2) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(n==0);
+    	}
+    	
     }
     
 }
