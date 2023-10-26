@@ -105,7 +105,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         
         //initiates button that Replays
         btnReplay = new JButton("Replay");
-        btnReplay.setBounds(450, 15, 100, 30);
+        btnReplay.setBounds(225, 15, 100, 30);
         btnReplay.setVisible(false);
         btnReplay.addActionListener(this);
 
