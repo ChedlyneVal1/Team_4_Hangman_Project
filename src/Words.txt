@@ -1,7 +1,6 @@
 Adult
 Aeroplane
 Air
-Aircraft Carrier
 Airforce
 Airport
 Album
@@ -35,18 +34,14 @@ Brain
 Bridge
 Butterfly
 Button
-Cappuccino
 Car
-Car-race
 Carpet
 Carrot
 Cave
 Chair
-Chess Board
 Chief
 Child
 Chisel
-Chocolates
 Church
 Church
 Circle
@@ -55,15 +50,12 @@ Circus
 Clock
 Clown
 Coffee
-Coffee-shop
 Comet
-Compact Disc
 Compass
 Computer
 Crystal
 Cup
 Cycle
-Data Base
 Desk
 Diamond
 Dress
@@ -74,7 +66,6 @@ Dung
 Ears
 Earth
 Egg
-Electricity
 Elephant
 Eraser
 Explosive
@@ -86,7 +77,6 @@ Festival
 Film
 Finger
 Fire
-Floodlight
 Flower
 Foot
 Fork
@@ -105,20 +95,15 @@ Grapes
 Guitar
 Hammer
 Hat
-Hieroglyph
 Highway
 Horoscope
 Horse
 Hose
 Ice
-Ice-cream
 Insect
-Jet fighter
 Junk
-Kaleidoscope
 Kitchen
 Knife
-Leather jacket
 Leg
 Library
 Liquid
@@ -128,9 +113,7 @@ Map
 Maze
 Meat
 Meteor
-Microscope
 Milk
-Milkshake
 Mist
 Money
 Monster
@@ -141,7 +124,6 @@ Navy
 Necklace
 Needle
 Onion
-PaintBrush
 Pants
 Parachute
 Passport
@@ -153,7 +135,6 @@ Pillow
 Plane
 Planet
 Pocket
-Post-office
 Potato
 Printer
 Prison
@@ -161,7 +142,6 @@ Pyramid
 Radar
 Rainbow
 Record
-Restaurant
 Rifle
 Ring
 Robot
@@ -187,30 +167,22 @@ Slave
 Snail
 Software
 Solid
-Space Shuttle
 Spectrum
 Sphere
 Spice
 Spiral
 Spoon
-Sports-car
-Spot Light
 Square
 Staircase
 Star
 Stomach
 Sun
-Sunglasses
 Surveyor
-Swimming Pool
 Sword
 Table
 Tapestry
 Teeth
 Telescope
-Television
-Tennis racquet
-Thermometer
 Tiger
 Toilet
 Tongue
@@ -220,7 +192,6 @@ Train
 Treadmill
 Triangle
 Tunnel
-Typewriter
 Umbrella
 Vacuum
 Vampire
@@ -229,7 +200,6 @@ Vulture
 Water
 Weapon
 Web
-Wheelchair
 Window
 Woman
 Worm
