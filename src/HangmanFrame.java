@@ -18,33 +18,64 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private HangmanWordPanel word;
     private WordGeneration wordGen = WordGeneration.getInstance();
     private String wordString;
+    private HangmanSaveState saveState;
 
 
     private ImageIcon image = new ImageIcon("start.png");
+    
+    private int gameState = 0;
+    private boolean initialStart = true;
 
-
+    private enum configState {
+    	newGame,
+    	replayGame,
+    	resumeGame;
+    }
+    
+    public HangmanFrame() {
+    	saveState = new HangmanSaveState();
+    	if(saveState.isPrevSavedGame()) {
+    		saveState.loadGameState();
+    	}
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
     	
     	
         if(e.getSource() == btnToggle){
-            if (btnToggle.getText().equals("Play")){      
-                configGameUI(true);
+            if (btnToggle.getText().equals("Play")){
+            	gameState = 1;
+            	
+            	configState curState = configState.newGame;
+            	
+            	if(initialStart) {
+            		if(saveState.isPrevSavedGame()) {
+		            	// Ask player if they would like to replay the last saved game?
+		            	if(this.checkPrevSaveState())
+		            		curState = configState.resumeGame;
+            		}
+	            	initialStart = false;
+            	}
+            	
+                configGameUI(curState);
                 
             }else {
+            	gameState = 0;
             	configMainUI();
             }
         } else if (e.getSource() == btnReplay) {
         	replayPressed();
         } else if (e.getSource()== btnExit) {
-            this.dispose();
+        	//Ask if the user wants to save where they left off
+        	this.quitPressed();
         }
 
     }
 
 
     public static void main(String[] args) throws Exception
-    {
+    {	
         HangmanFrame hmF = new HangmanFrame();
         hmF.createLabels();
         hmF.createButtons();
@@ -134,19 +165,37 @@ public class HangmanFrame extends JFrame implements ActionListener {
    /**
     * A method to create the other objects needed for the game to function.
     */
-    private void createComponents(boolean newWord) {
+    private void createComponents(String inWord) {
     	drawing = new HangmanDrawing(this);
         word = new HangmanWordPanel(this);
     	input = new HangmanInput(this);
     	
-    	if(newWord)
-    		wordString = wordGen.genaratedWord();
-    		
-    	word.setWord(wordString);
+    	if(inWord != "") {
+    		word.setWord(inWord);
+    	}   		
     }
     
     public void guessLetter(String s) {
     	word.guessLetter(s);
+    }
+    
+    public boolean checkPrevSaveState() {
+    	// Create a dialog window asking the user if they want to
+    	// resume the previous game.
+    	Object[] options = {"Yes",
+    	                    "No"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "Would you like to resume your previously saved game?",
+    	    "Resume",
+    	    JOptionPane.YES_NO_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);  	
+    	
+		saveState.cleanup();
+    	
+    	return(n==0);
     }
     
     /**
@@ -160,9 +209,24 @@ public class HangmanFrame extends JFrame implements ActionListener {
     /**
      * A method to remove the UI elements of the Main Screen and add the UI elements of the Game Screen.
      */
-    private void configGameUI(boolean newWord) {
+    private void configGameUI(configState cfgState) {
     	hideMainUI();
     	
+    	String newWord = "";
+    	
+    	switch(cfgState) {
+    		case newGame:
+    			newWord = wordGen.genaratedWord();
+    			break;
+    		case replayGame:
+    			newWord = word.getWord();
+    			break;
+    		case resumeGame:
+    			newWord = saveState.getPrevWord();
+    			break;
+    		default:
+    	}
+
     	createComponents(newWord);
     	addGameUI();
     }
@@ -231,12 +295,51 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	    options,
     	    options[2]);
     	
-    	if(n!=2) {
+    	if(n==0) {
     		// Reset game ui
     		configMainUI();
-    		configGameUI(n==0);
+    		configGameUI(configState.newGame);
+    	} else if(n==1) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(configState.replayGame);
+    	}
+    }
+    	
+	/**
+     * A method to handle saving the game
+     */
+    private void quitPressed() {
+    	boolean quitGame = true;
+    	if(gameState == 1) {
+	    	// Create a dialog window asking the user if they want to
+	    	// save their progress with the current game.
+	    	Object[] options = {"Yes",
+	    	                    "No",
+	    	                    "Cancel"};
+	    	int n = JOptionPane.showOptionDialog(this,
+	    	    "Would you like to save before quitting?",
+	    	    "Quit",
+	    	    JOptionPane.YES_NO_CANCEL_OPTION,
+	    	    JOptionPane.QUESTION_MESSAGE,
+	    	    null,
+	    	    options,
+	    	    options[2]);
+	    	
+	    	if(n==0)
+	    		this.savePrevGame();
+	    	else if(n==2)
+	    		quitGame = false;
     	}
     	
+    	// See if we want to exit the game
+    	if(quitGame)
+    		this.dispose();
+    }
+    
+    private void savePrevGame() {
+    	saveState.save(word.getWord());
+    	saveState.saveGameState();
     }
     
 }
