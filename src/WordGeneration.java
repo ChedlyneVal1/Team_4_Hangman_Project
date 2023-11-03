@@ -21,11 +21,14 @@ public class WordGeneration {
     
     private void init() throws FileNotFoundException
     {
-    	Scanner scanner = new Scanner(new File("..\\Team_4_Hangman_Project\\src\\Words.txt"));
+    	Scanner scanner = new Scanner(new File("..\\Team_4_Hangman_Project\\src\\Phrases.txt"));
 		
 		while (scanner.hasNext())
 		{
-			words.add((scanner.nextLine()));
+			String phrase = scanner.nextLine();
+			if (phrase.length() < 35){
+				words.add(phrase);
+			}
 		}
     }
     
@@ -38,14 +41,14 @@ public class WordGeneration {
         return instance; 
     } 
     
-	public String genaratedWord() 
+	public String genaratedWord()
 	{	
 		Random random = new Random();
 		
-		String word = words.get(random.nextInt(words.size()));
-		
+		String phrase = words.get(random.nextInt(words.size()));
+
 		//System.out.println(word);
-		return word;
+		return phrase;
 		
 	}
 }
