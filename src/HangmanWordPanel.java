@@ -181,6 +181,7 @@ public class HangmanWordPanel {
     		drawCorrectGuesses();    		
     	}
     	else {
+            hmf.getDrawing().updateHangman();
     		//TODO draw the hangman image (in HangmanDrawing).
     	}
     	

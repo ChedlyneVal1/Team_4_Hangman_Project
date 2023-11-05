@@ -1,20 +1,24 @@
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class HangmanDrawing {
+public class HangmanDrawing extends JPanel {
 	
 	private JPanel drawingPanel;
 	private JLabel drawingLabel;
 	
 	private HangmanFrame hmf;
 	
+	private int incorrectGuesses;
+	
 	/**
 	 * A constructor for the HangmanDrawing class.
 	 * @param hmf A HangmanFrame holding the underlying JFrame.
 	 */
 	HangmanDrawing(HangmanFrame hmf) {
+		incorrectGuesses = 0;
 		this.hmf = hmf;
 		init();
 	}
@@ -51,12 +55,55 @@ public class HangmanDrawing {
 		this.hmf.remove(drawingPanel);
 	}
 	
-	private void updateHangman() {
-		//TODO
+	public void updateHangman() {
+		incorrectGuesses++;
+        repaint();
+        if (incorrectGuesses >= 6)
+        {
+        	//end game
+        }
 	}
 	
 	private void resetHangman() {
 		//TODO
 	}
 
-}
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+
+	        g.setColor(Color.BLACK);
+	        g.drawLine(10,10, 150, 10); //horizontal line
+	        g.drawLine(150,10, 150, 50);//small straight line
+	        g.drawLine(10,10, 10, 300); //vertical line
+	        g.drawLine(0,300, 20, 300);
+	        //hangman figure based on the number of incorrect guesses
+	        if (incorrectGuesses >= 1) {
+	            // head
+	            g.drawOval(125,52 , 50, 50);
+	        }
+	        if (incorrectGuesses >= 2) {
+	            // body
+	            g.drawLine(150, 100, 150, 230);
+	        }
+	        if (incorrectGuesses >= 3) {
+	            // left arm
+	            g.drawLine(150, 120, 65, 150);
+	        }
+	        if (incorrectGuesses >= 4) {
+	            // right arm
+	            g.drawLine(150, 120, 230, 150);
+	        }
+	        if (incorrectGuesses >= 5) {
+	            // left leg
+	            g.drawLine(150, 230, 80, 270);
+	        }
+	        if (incorrectGuesses >= 6) {
+	            // right leg
+	            g.drawLine(150, 230, 230, 270);
+	        }
+	    }
+	    
+	}
+
+

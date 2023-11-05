@@ -49,7 +49,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         hmF.createLabels();
         hmF.createButtons();
         hmF.createPanels();
-        hmF.configFrame();
+        hmF.configFrame();  
     }
 
 
@@ -129,13 +129,19 @@ public class HangmanFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
     }
-    
+    private void drawHangman()
+    {
+    	drawing = new HangmanDrawing(this);
+    	drawing.setBounds(0, 50, 350, 550);
+        drawing.setVisible(true);
+        this.add(drawing);
+    }
     
    /**
     * A method to create the other objects needed for the game to function.
     */
     private void createComponents(boolean newWord) {
-    	drawing = new HangmanDrawing(this);
+    	drawHangman();
         word = new HangmanWordPanel(this);
     	input = new HangmanInput(this);
     	
@@ -162,7 +168,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
      */
     private void configGameUI(boolean newWord) {
     	hideMainUI();
-    	
+        
     	createComponents(newWord);
     	addGameUI();
     }
@@ -238,5 +244,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	}
     	
     }
-    
+    public HangmanDrawing getDrawing() {
+        return drawing;
+    }
 }
