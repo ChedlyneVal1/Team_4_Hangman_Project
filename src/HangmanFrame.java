@@ -146,7 +146,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     public void guessLetter(String s) {
-    	word.guessLetter(s);
+    	word.checkGuess(s);
     }
     
     /**
