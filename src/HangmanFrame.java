@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class HangmanFrame extends JFrame implements ActionListener {
@@ -147,6 +148,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     public void guessLetter(String s) {
     	word.checkGuess(s);
+    }
+    
+    public void updateIncorrectGuesses(ArrayList<String> s) {
+    	input.updateIncorrectGuesses(s);
     }
     
     /**

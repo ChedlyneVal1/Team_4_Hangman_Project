@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -15,7 +18,7 @@ public class HangmanWordPanel {
 	private int trackSpaces = 0;
 	private ArrayList<String> words;
 	private ArrayList<Character> letters;
-	private ArrayList<Character> guessedLetters;
+	private ArrayList<String> incorrectLetters;
 	private ArrayList<Boolean> correctLetters;
 
 	private Font font;
@@ -50,16 +53,15 @@ public class HangmanWordPanel {
 
 
 		letters = new ArrayList<Character>();
-		guessedLetters = new ArrayList<Character>();
+		incorrectLetters = new ArrayList<String>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
-
+		
 		wordPanel = new JPanel();
-        wordPanel.setLayout(null);
-        wordPanel.setBackground(Color.LIGHT_GRAY);
-        wordPanel.setBounds(350, 50, 450, 350);
-        wordPanel.setVisible(true);
-
+		wordPanel.setLayout(null);
+		wordPanel.setBackground(Color.LIGHT_GRAY);
+		wordPanel.setBounds(350, 50, 450, 350);
+		wordPanel.setVisible(true);
 	}
 
 
@@ -84,10 +86,6 @@ public class HangmanWordPanel {
 	 * @return A String containing the currently selected word.
 	 */
 	public String getWord() {
-		//TODO call the word class to get a new word.
-
-
-		//TODO delete
 		return this.currentWord;
 	}
 
@@ -260,14 +258,15 @@ public class HangmanWordPanel {
 
 		if (!isCorrect)
 		{
-			//TODO
+			if(incorrectLetters.stream().anyMatch(str -> str.equals(aGuess.toLowerCase()))) {
+				JOptionPane.showMessageDialog(null, "You already guessed that letter!", "Already Guessed Letter", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else if (aGuess.toLowerCase().toCharArray()[0] >= 'a' && aGuess.toLowerCase().toCharArray()[0] <= 'z') {
+				incorrectLetters.add(aGuess.toLowerCase());
+				Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
+				this.hmf.updateIncorrectGuesses(incorrectLetters);		
+			}
 		}
-		else
-		{
-			//TODO
-		}
-
-
 	}
 }
 
