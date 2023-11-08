@@ -1,8 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class HangmanWordPanel {
@@ -15,7 +14,7 @@ public class HangmanWordPanel {
 	private int trackSpaces = 0;
 	private ArrayList<String> words;
 	private ArrayList<Character> letters;
-	private ArrayList<Character> guessedLetters;
+	private ArrayList<String> guessedLetters;
 	private ArrayList<Boolean> correctLetters;
 
 	private Font font;
@@ -50,7 +49,7 @@ public class HangmanWordPanel {
 
 
 		letters = new ArrayList<Character>();
-		guessedLetters = new ArrayList<Character>();
+		guessedLetters = new ArrayList<String>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
 
@@ -232,7 +231,15 @@ public class HangmanWordPanel {
 	{
 		boolean isCorrect = false;
 		int ltrIdx = 0;
+		String usedLetters = "";
 		String charStr;
+		if(guessedLetters.contains(aGuess)){
+			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+		}
+		else {
+			guessedLetters.add(aGuess);
+			usedLetters = usedLetters + " " + aGuess;
+		}
 
 
 		for (int i = 0; i < words.size(); i++)
