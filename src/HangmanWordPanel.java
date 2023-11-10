@@ -129,13 +129,14 @@ public class HangmanWordPanel {
 		for (int i = 0; i <= numLetters - 1; i++){
 			dashLabel[i] = new JLabel();
 			charLabel[i] = new JLabel();
+			
+			this.correctLetters.add(false);
 		}
 
 		formatLabels();
 
 		for (char i : this.currentWord.toCharArray()) {
 			this.letters.add(i);
-			this.correctLetters.add(false);
 		}
 	}
 
@@ -222,6 +223,13 @@ public class HangmanWordPanel {
 		hmf.setVisible(false);
 		hmf.setVisible(true);
 	}
+	
+	public boolean checkWinCondition() {
+		if(this.correctLetters.contains(false)) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * A method to check if the guess is correct and sets the letter in its correct location
@@ -250,8 +258,10 @@ public class HangmanWordPanel {
 					charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
 					charLabel[ltrIdx].setBounds(x, y, w, h);
 					isCorrect = true;
-
+					
+					correctLetters.set(ltrIdx, true);	//added
 				}
+							
 				ltrIdx++;
 			}
 		}

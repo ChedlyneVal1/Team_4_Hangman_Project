@@ -218,6 +218,34 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnReplay.setVisible(false);
     }
     
+    
+    public void win() {
+    	// Create a dialog window asking the user if they want to
+    	// start over with a new word.
+    	Object[] options = {"New word",
+    	                    "Same word"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "You won! Play again?",
+    	    "You won!",
+    	    JOptionPane.YES_NO_CANCEL_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);
+    	
+    	if(n!=2) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(n==0);
+    	}
+    }
+    
+    public void checkWinCondition() {
+    	if(word.checkWinCondition()) {
+    		win();
+    	}
+    }
+    
     /**
      * A method to handle replaying the game
      */
@@ -240,8 +268,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		// Reset game ui
     		configMainUI();
     		configGameUI(n==0);
-    	}
-    	
+    	}   	
     }
     
 }

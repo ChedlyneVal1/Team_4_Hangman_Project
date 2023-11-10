@@ -133,6 +133,8 @@ public class HangmanInput implements ActionListener {
 			}
 			
 			inputTextField.setText("");
+			
+			this.hmf.checkWinCondition();
 		}     	
 	}
 }
