@@ -12,6 +12,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JButton btnToggle;
     private static JButton btnReplay;
     private static JButton btnExit;
+    private static JTextArea gameInstructions;
 
     private HangmanDrawing drawing;
     private HangmanInput input;
@@ -49,7 +50,8 @@ public class HangmanFrame extends JFrame implements ActionListener {
         hmF.createLabels();
         hmF.createButtons();
         hmF.createPanels();
-        hmF.configFrame();  
+        hmF.configFrame();
+        hmF.createTextArea();
     }
 
 
@@ -118,17 +120,34 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
     }
 
+    private void createTextArea()
+    {
+        gameInstructions = new JTextArea();
+        gameInstructions.setBounds(25, 450, 800, 100);
+        gameStartLabel.add(gameInstructions);
+        gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
+                "   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
+                "   player is hanged (and loses). ");
+        gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
+        gameInstructions.setEditable(false);
+        gameInstructions.setVisible(true);
+    }
 
     private void configFrame()
     {  //configures components on HangmanFrame
+
+
         this.setLayout(null);
         this.add(gameStartPanel);
         this.add(btnTogglePanel);
+
         this.setTitle("Hangman");
         this.setSize(800, 600);
+
         this.setResizable(false);
         this.setVisible(true);
     }
+
     private void drawHangman()
     {
     	drawing = new HangmanDrawing(this);
@@ -136,6 +155,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         drawing.setVisible(true);
         this.add(drawing);
     }
+
     
    /**
     * A method to create the other objects needed for the game to function.
@@ -180,6 +200,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	createLabels();
     	createButtons();
         createPanels();
+        createTextArea();
         configFrame();
         
         this.revalidate();
