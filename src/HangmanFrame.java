@@ -126,7 +126,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         gameInstructions.setBounds(25, 450, 800, 100);
         gameStartLabel.add(gameInstructions);
         gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
-                "   or phrase by guessing letters. If too many letters which do not appear in the word are guessed the ,\n" +
+                "   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
                 "   player is hanged (and loses). ");
         gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
         gameInstructions.setEditable(false);
