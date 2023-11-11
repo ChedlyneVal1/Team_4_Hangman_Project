@@ -24,9 +24,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
     private ImageIcon image = new ImageIcon("start.png");
     
-    private int gameState = 0;
     private boolean initialStart = true;
 
+    private enum gameState {
+    	start,
+    	inGame,
+    	pause;
+    }
+    
+    private gameState gState;
+    
     private enum configState {
     	newGame,
     	replayGame,
@@ -38,6 +45,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	if(saveState.isPrevSavedGame()) {
     		saveState.loadGameState();
     	}
+    	gState = gameState.start;
     }
     
     @Override
@@ -46,12 +54,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
         if(e.getSource() == btnToggle){
             if (btnToggle.getText().equals("Play")){
-            	gameState = 1;
             	
             	configState curState = configState.newGame;
             	
-            	if(initialStart) {
-            		if(saveState.isPrevSavedGame()) {
+            	if(gState == gameState.pause || initialStart) {
+            		if(gState == gameState.pause || saveState.isPrevSavedGame()) {
 		            	// Ask player if they would like to replay the last saved game?
 		            	if(this.checkPrevSaveState())
 		            		curState = configState.resumeGame;
@@ -60,9 +67,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
             	}
             	
                 configGameUI(curState);
-                
+                gState = gameState.inGame;
             }else {
-            	gameState = 0;
+            	gState = gameState.pause;
+            	this.savePrevGame(false);
             	configMainUI();
             }
         } else if (e.getSource() == btnReplay) {
@@ -215,12 +223,19 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     public boolean checkPrevSaveState() {
+    	String resumeQuestion;
+
+    	if(gState == gameState.pause)
+			 resumeQuestion = "Would you like to resume your paused game?";
+    	else
+	         resumeQuestion = "Would you like to resume your previously saved game?";
+    	
     	// Create a dialog window asking the user if they want to
     	// resume the previous game.
     	Object[] options = {"Yes",
     	                    "No"};
     	int n = JOptionPane.showOptionDialog(this,
-    	    "Would you like to resume your previously saved game?",
+    		resumeQuestion,
     	    "Resume",
     	    JOptionPane.YES_NO_OPTION,
     	    JOptionPane.QUESTION_MESSAGE,
@@ -238,7 +253,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
      */
     private void configMainUI() {
     	hideGameUI();
-    	addMainUI();	
+    	addMainUI();
     }
     
     /**
@@ -353,7 +368,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
      */
     private void quitPressed() {
     	boolean quitGame = true;
-    	if(gameState == 1) {
+    	if(gState != gameState.start) {
 	    	// Create a dialog window asking the user if they want to
 	    	// save their progress with the current game.
 	    	Object[] options = {"Yes",
@@ -369,7 +384,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 	    	    options[2]);
 	    	
 	    	if(n==0)
-	    		this.savePrevGame();
+	    		this.savePrevGame(true);
 	    	else if(n==2)
 	    		quitGame = false;
 
@@ -380,9 +395,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		this.dispose();
     }
     
-    private void savePrevGame() {
+    private void savePrevGame(boolean saveToFile) {
     	saveState.save(word.getWord(), getDrawing().getIncorrectGuesses(), word.getCorrectGuesses());
-    	saveState.saveGameState();
+    	if(saveToFile)
+    		saveState.saveGameState();
     }
     
     public void showLostScreen() {
