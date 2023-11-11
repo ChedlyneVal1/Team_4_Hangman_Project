@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class HangmanSaveState implements Serializable {
 
@@ -14,11 +15,23 @@ public class HangmanSaveState implements Serializable {
 	//number of guesses
 	private int numOfGuesses;
 	//letters guessed
-	//hangman state
+	private ArrayList<Character> correctlyGuessedLetters;
+	
+	// Getters and Setters
 	
 	public String getPrevWord() {return prevWord;}
 	
-	public void setPrevWord(String inWord) {prevWord = inWord;}
+	private void setPrevWord(String inWord) {prevWord = inWord;}
+	
+	public int getNumOfGuesses() {return numOfGuesses;}
+	
+	private void setNumOfGuesses(int guesses) {numOfGuesses = guesses;}
+
+	public ArrayList<Character> getCorrectlyGuessedLetters() {return correctlyGuessedLetters;}
+	
+	private void setCorrectlyGuessedLetters(ArrayList<Character> correctGuesses) {correctlyGuessedLetters = correctGuesses;}
+	
+	// End of Getters and Setters
 	
 	public void saveGameState() {
 		try {
@@ -33,6 +46,7 @@ public class HangmanSaveState implements Serializable {
             file.close();
 		} catch (Exception ex) {
 			System.out.println("Exception was caught");
+			System.out.println(ex.getMessage());
 		}
 	}
 	
@@ -56,7 +70,7 @@ public class HangmanSaveState implements Serializable {
 	}
 	
 	private void copyGameState(HangmanSaveState copy) {
-		this.setPrevWord(copy.getPrevWord());
+		save(copy.getPrevWord(), copy.getNumOfGuesses(), copy.getCorrectlyGuessedLetters());
 	}
 	
 	private void removeSaveFile() {
@@ -71,8 +85,10 @@ public class HangmanSaveState implements Serializable {
 		return f.exists();
 	}
 	
-	public void save(String word) {
-		prevWord = word;
+	public void save(String word, int guesses, ArrayList<Character> correctGuesses) {
+		setPrevWord(word);
+		setNumOfGuesses(guesses);
+		setCorrectlyGuessedLetters(correctGuesses);
 	}
 	
 	public void cleanup() {
