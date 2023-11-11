@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class HangmanDrawing extends JPanel {
@@ -53,6 +54,7 @@ public class HangmanDrawing extends JPanel {
 	 */
 	public void removeUI() {
 		this.hmf.remove(drawingPanel);
+		this.setVisible(false); 
 	}
 	
 	public void updateHangman() {
@@ -60,12 +62,14 @@ public class HangmanDrawing extends JPanel {
         repaint();
         if (incorrectGuesses >= 6)
         {
-        	//end game
+        	hmf.showLostScreen();
         }
 	}
-	
-	private void resetHangman() {
-		//TODO
+	public void setIIncorrectGuesses() {
+		incorrectGuesses = 0;
+	}
+	public void resetHangman() {
+		incorrectGuesses = 0;
 	}
 
 	    @Override

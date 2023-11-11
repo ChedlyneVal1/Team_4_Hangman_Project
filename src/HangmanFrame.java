@@ -217,6 +217,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
     	this.remove(btnTogglePanel);
         btnReplay.setVisible(false);
+        drawing.setIIncorrectGuesses();
     }
     
     /**
@@ -241,8 +242,23 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		// Reset game ui
     		configMainUI();
     		configGameUI(n==0);
+    		drawing.resetHangman();
     	}
     	
+    }
+    public void showLostScreen() {
+        Object[] options = {"Replay", "Cancel"};
+        int n = JOptionPane.showOptionDialog(this,
+        	    "You Lost!",
+        	    "Play Again",
+        	    JOptionPane.YES_NO_CANCEL_OPTION,
+        	    JOptionPane.QUESTION_MESSAGE,
+        	    null,
+        	    options,
+        	    options[1]);
+        if(n!=1) {
+    		replayPressed();
+    	}
     }
     public HangmanDrawing getDrawing() {
         return drawing;
