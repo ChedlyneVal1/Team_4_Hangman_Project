@@ -6,6 +6,8 @@ import java.util.Collections;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.*;
+
 
 
 public class HangmanWordPanel {
@@ -19,6 +21,7 @@ public class HangmanWordPanel {
 	private ArrayList<String> words;
 	private ArrayList<Character> letters;
 	private ArrayList<String> incorrectLetters;
+	private ArrayList<String> guessedLetters;
 	private ArrayList<Boolean> correctLetters;
 
 	private Font font;
@@ -54,6 +57,7 @@ public class HangmanWordPanel {
 
 		letters = new ArrayList<Character>();
 		incorrectLetters = new ArrayList<String>();
+		guessedLetters = new ArrayList<String>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
 		
@@ -238,7 +242,15 @@ public class HangmanWordPanel {
 	{
 		boolean isCorrect = false;
 		int ltrIdx = 0;
+		String usedLetters = "";
 		String charStr;
+		if(guessedLetters.contains(aGuess)){
+			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+		}
+		else {
+			guessedLetters.add(aGuess);
+			usedLetters = usedLetters + " " + aGuess;
+		}
 
 
 		for (int i = 0; i < words.size(); i++)
@@ -274,7 +286,8 @@ public class HangmanWordPanel {
 			else if (aGuess.toLowerCase().toCharArray()[0] >= 'a' && aGuess.toLowerCase().toCharArray()[0] <= 'z') {
 				incorrectLetters.add(aGuess.toLowerCase());
 				Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
-				this.hmf.updateIncorrectGuesses(incorrectLetters);		
+				this.hmf.updateIncorrectGuesses(incorrectLetters);
+				hmf.getDrawing().updateHangman();
 			}
 		}
 	}
