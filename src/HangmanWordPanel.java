@@ -260,7 +260,7 @@ public class HangmanWordPanel {
 
 		if (!isCorrect)
 		{
-			//TODO
+			hmf.getDrawing().updateHangman();
 		}
 		else
 		{
