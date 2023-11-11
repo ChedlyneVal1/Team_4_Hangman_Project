@@ -128,7 +128,7 @@ public class HangmanInput implements ActionListener {
 			if(s.length() == 1) {
 				this.hmf.guessLetter(s);
 			}
-			else {
+			else if (s.length() > 1){
 				JOptionPane.showMessageDialog(null, "You may only guess one letter at a time!", "Too many letters!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			

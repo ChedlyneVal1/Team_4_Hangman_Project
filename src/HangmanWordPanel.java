@@ -271,25 +271,33 @@ public class HangmanWordPanel {
 					charLabel[ltrIdx].setBounds(x, y, w, h);
 					isCorrect = true;
 					
-					correctLetters.set(ltrIdx, true);	//added
+					correctLetters.set(ltrIdx, true);
 				}
 							
 				ltrIdx++;
 			}
 		}
-
-		if (!isCorrect)
-		{
-			if(incorrectLetters.stream().anyMatch(str -> str.equals(aGuess.toLowerCase()))) {
-				JOptionPane.showMessageDialog(null, "You already guessed that letter!", "Already Guessed Letter", JOptionPane.INFORMATION_MESSAGE);
-			}
-			else if (aGuess.toLowerCase().toCharArray()[0] >= 'a' && aGuess.toLowerCase().toCharArray()[0] <= 'z') {
-				incorrectLetters.add(aGuess.toLowerCase());
-				Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
-				this.hmf.updateIncorrectGuesses(incorrectLetters);
-				hmf.getDrawing().updateHangman();
-			}
+		
+		if(!isCorrect) {
+			incorrectGuessCheck(aGuess);
 		}
+	}
+	
+	private void incorrectGuessCheck(String s) {
+		if (!incorrectLetters.stream().anyMatch(str -> str.equals(s.toLowerCase())) && checkLetterBounds(s))
+		{
+			incorrectLetters.add(s.toLowerCase());
+			Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
+			this.hmf.updateIncorrectGuesses(incorrectLetters);
+			hmf.getDrawing().updateHangman();
+		}
+	}
+	
+	private boolean checkLetterBounds(String s) {
+		if (s.toLowerCase().toCharArray()[0] >= 'a' && s.toLowerCase().toCharArray()[0] <= 'z') {
+			return true;
+		}
+		return false;
 	}
 }
 
