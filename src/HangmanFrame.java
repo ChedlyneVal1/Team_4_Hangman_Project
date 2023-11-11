@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class HangmanFrame extends JFrame implements ActionListener {
@@ -175,6 +176,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	word.checkGuess(s);
     }
     
+    public void updateIncorrectGuesses(ArrayList<String> s) {
+    	input.updateIncorrectGuesses(s);
+    }
+    
     /**
      * A method to remove the UI elements of the Game Screen and add the UI elements of the Main Screen.
      */
@@ -241,6 +246,34 @@ public class HangmanFrame extends JFrame implements ActionListener {
         drawing.setIIncorrectGuesses();
     }
     
+    
+    public void win() {
+    	// Create a dialog window asking the user if they want to
+    	// start over with a new word.
+    	Object[] options = {"New word",
+    	                    "Same word"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "You won! Play again?",
+    	    "You won!",
+    	    JOptionPane.YES_NO_CANCEL_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);
+    	
+    	if(n!=2) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(n==0);
+    	}
+    }
+    
+    public void checkWinCondition() {
+    	if(word.checkWinCondition()) {
+    		win();
+    	}
+    }
+    
     /**
      * A method to handle replaying the game
      */
@@ -263,9 +296,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		// Reset game ui
     		configMainUI();
     		configGameUI(n==0);
-    		drawing.resetHangman();
-    	}
-    	
+    	}   	
     }
     public void showLostScreen() {
         Object[] options = {"Replay", "Cancel"};

@@ -1,7 +1,13 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.*;
+
 
 
 public class HangmanWordPanel {
@@ -14,6 +20,7 @@ public class HangmanWordPanel {
 	private int trackSpaces = 0;
 	private ArrayList<String> words;
 	private ArrayList<Character> letters;
+	private ArrayList<String> incorrectLetters;
 	private ArrayList<String> guessedLetters;
 	private ArrayList<Boolean> correctLetters;
 
@@ -49,16 +56,16 @@ public class HangmanWordPanel {
 
 
 		letters = new ArrayList<Character>();
+		incorrectLetters = new ArrayList<String>();
 		guessedLetters = new ArrayList<String>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
-
+		
 		wordPanel = new JPanel();
-        wordPanel.setLayout(null);
-        wordPanel.setBackground(Color.LIGHT_GRAY);
-        wordPanel.setBounds(350, 50, 450, 350);
-        wordPanel.setVisible(true);
-
+		wordPanel.setLayout(null);
+		wordPanel.setBackground(Color.LIGHT_GRAY);
+		wordPanel.setBounds(350, 50, 450, 350);
+		wordPanel.setVisible(true);
 	}
 
 
@@ -83,10 +90,6 @@ public class HangmanWordPanel {
 	 * @return A String containing the currently selected word.
 	 */
 	public String getWord() {
-		//TODO call the word class to get a new word.
-
-
-		//TODO delete
 		return this.currentWord;
 	}
 
@@ -130,13 +133,14 @@ public class HangmanWordPanel {
 		for (int i = 0; i <= numLetters - 1; i++){
 			dashLabel[i] = new JLabel();
 			charLabel[i] = new JLabel();
+			
+			this.correctLetters.add(false);
 		}
 
 		formatLabels();
 
 		for (char i : this.currentWord.toCharArray()) {
 			this.letters.add(i);
-			this.correctLetters.add(false);
 		}
 	}
 
@@ -223,6 +227,13 @@ public class HangmanWordPanel {
 		hmf.setVisible(false);
 		hmf.setVisible(true);
 	}
+	
+	public boolean checkWinCondition() {
+		if(this.correctLetters.contains(false)) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * A method to check if the guess is correct and sets the letter in its correct location
@@ -259,22 +270,34 @@ public class HangmanWordPanel {
 					charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
 					charLabel[ltrIdx].setBounds(x, y, w, h);
 					isCorrect = true;
-
+					
+					correctLetters.set(ltrIdx, true);
 				}
+							
 				ltrIdx++;
 			}
 		}
-
-		if (!isCorrect)
+		
+		if(!isCorrect) {
+			incorrectGuessCheck(aGuess);
+		}
+	}
+	
+	private void incorrectGuessCheck(String s) {
+		if (!incorrectLetters.stream().anyMatch(str -> str.equals(s.toLowerCase())) && checkLetterBounds(s))
 		{
+			incorrectLetters.add(s.toLowerCase());
+			Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
+			this.hmf.updateIncorrectGuesses(incorrectLetters);
 			hmf.getDrawing().updateHangman();
 		}
-		else
-		{
-			//TODO
+	}
+	
+	private boolean checkLetterBounds(String s) {
+		if (s.toLowerCase().toCharArray()[0] >= 'a' && s.toLowerCase().toCharArray()[0] <= 'z') {
+			return true;
 		}
-
-
+		return false;
 	}
 }
 
