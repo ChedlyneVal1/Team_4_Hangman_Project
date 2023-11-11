@@ -57,8 +57,8 @@ public class HangmanFrame extends JFrame implements ActionListener {
             	
             	configState curState = configState.newGame;
             	
-            	if(gState == gameState.pause || initialStart) {
-            		if(gState == gameState.pause || saveState.isPrevSavedGame()) {
+            	if(initialStart) {
+            		if(saveState.isPrevSavedGame()) {
 		            	// Ask player if they would like to replay the last saved game?
 		            	if(this.checkPrevSaveState())
 		            		curState = configState.resumeGame;
@@ -68,7 +68,9 @@ public class HangmanFrame extends JFrame implements ActionListener {
             	
                 configGameUI(curState);
                 gState = gameState.inGame;
-            }else {
+            } else if (btnToggle.getText().equals("Resume")) {
+            	configGameUI(configState.resumeGame);
+            } else {
             	gState = gameState.pause;
             	this.savePrevGame(false);
             	configMainUI();
@@ -136,10 +138,12 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
 
     private void createButtons(){
-
-
+    	String playResumeButton = "Play";
+    	if(gState == gameState.pause)
+    		playResumeButton = "Resume";
+    	
         //initiates button that toggles between Play and Back
-        btnToggle = new JButton("Play");
+        btnToggle = new JButton(playResumeButton);
         btnToggle.setBounds(340, 15, 100, 30);
         btnToggle.setVisible(true);
         btnToggle.addActionListener(this);
