@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.*;
+
 
 
 public class HangmanWordPanel {
@@ -17,6 +22,7 @@ public class HangmanWordPanel {
 	private ArrayList<Character> letters;
 	private ArrayList<Character> guessedLetters;
 	private ArrayList<Character> correctlyGuessedLetters;
+	private ArrayList<String> incorrectLetters;
 	private ArrayList<Boolean> correctLetters;
 
 	private Font font;
@@ -51,17 +57,17 @@ public class HangmanWordPanel {
 
 
 		letters = new ArrayList<Character>();
+		incorrectLetters = new ArrayList<String>();
 		guessedLetters = new ArrayList<Character>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
 		correctlyGuessedLetters = new ArrayList<Character>();
 
 		wordPanel = new JPanel();
-        wordPanel.setLayout(null);
-        wordPanel.setBackground(Color.LIGHT_GRAY);
-        wordPanel.setBounds(350, 50, 450, 350);
-        wordPanel.setVisible(true);
-
+		wordPanel.setLayout(null);
+		wordPanel.setBackground(Color.LIGHT_GRAY);
+		wordPanel.setBounds(350, 50, 450, 350);
+		wordPanel.setVisible(true);
 	}
 
 
@@ -86,10 +92,6 @@ public class HangmanWordPanel {
 	 * @return A String containing the currently selected word.
 	 */
 	public String getWord() {
-		//TODO call the word class to get a new word.
-
-
-		//TODO delete
 		return this.currentWord;
 	}
 
@@ -120,6 +122,16 @@ public class HangmanWordPanel {
 		return this.correctlyGuessedLetters;
 	}
 
+	public ArrayList<String> getIncorrectGuesses() {
+
+		return this.incorrectLetters;
+	}
+	
+	public void setIncorrectGuesses(ArrayList<String> incorrectGuesses) {
+
+		this.incorrectLetters = incorrectGuesses;
+	}
+	
 	/**
 	 * A method to convert a phrase into a ArrayList<String>, and to initialize the values for the associated correctLetters ArrayList<Character>.
 	 */
@@ -141,13 +153,14 @@ public class HangmanWordPanel {
 		for (int i = 0; i <= numLetters - 1; i++){
 			dashLabel[i] = new JLabel();
 			charLabel[i] = new JLabel();
+			
+			this.correctLetters.add(false);
 		}
 
 		formatLabels();
 
 		for (char i : this.currentWord.toCharArray()) {
 			this.letters.add(i);
-			this.correctLetters.add(false);
 		}
 	}
 
@@ -234,6 +247,13 @@ public class HangmanWordPanel {
 		hmf.setVisible(false);
 		hmf.setVisible(true);
 	}
+	
+	public boolean checkWinCondition() {
+		if(this.correctLetters.contains(false)) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * A method to check if the guess is correct and sets the letter in its correct location
@@ -242,7 +262,15 @@ public class HangmanWordPanel {
 	{
 		boolean isCorrect = false;
 		int ltrIdx = 0;
+		String usedLetters = "";
 		String charStr;
+		if(guessedLetters.contains(aGuess)){
+			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+		}
+		else {
+			guessedLetters.add(aGuess.charAt(0));
+			usedLetters = usedLetters + " " + aGuess;
+		}
 
 
 		for (int i = 0; i < words.size(); i++)
@@ -264,21 +292,33 @@ public class HangmanWordPanel {
 					if(!isCorrect)
 						correctlyGuessedLetters.add(aGuess.charAt(0));
 					isCorrect = true;
+					correctLetters.set(ltrIdx, true);
 				}
+							
 				ltrIdx++;
 			}
 		}
-
-		if (!isCorrect)
+		
+		if(!isCorrect) {
+			incorrectGuessCheck(aGuess);
+		}
+	}
+	
+	private void incorrectGuessCheck(String s) {
+		if (!incorrectLetters.stream().anyMatch(str -> str.equals(s.toLowerCase())) && checkLetterBounds(s))
 		{
+			incorrectLetters.add(s.toLowerCase());
+			Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
+			this.hmf.updateIncorrectGuesses(incorrectLetters);
 			hmf.getDrawing().updateHangman();
 		}
-		else
-		{
-			//TODO
+	}
+	
+	private boolean checkLetterBounds(String s) {
+		if (s.toLowerCase().toCharArray()[0] >= 'a' && s.toLowerCase().toCharArray()[0] <= 'z') {
+			return true;
 		}
-
-
+		return false;
 	}
 }
 

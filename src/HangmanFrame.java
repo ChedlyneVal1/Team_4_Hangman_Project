@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class HangmanFrame extends JFrame implements ActionListener {
@@ -206,8 +207,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
     private void createComponents(String inWord, int numOfGuesses) {
 		drawHangman();
-		getDrawing().setIncorrectGuesses(numOfGuesses-1);
-		getDrawing().updateHangman();
         word = new HangmanWordPanel(this);
     	input = new HangmanInput(this);
     	
@@ -219,6 +218,9 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		for(Character c : saveState.getCorrectlyGuessedLetters()) {
     			word.checkGuess(c.toString());
     		}
+    		for(String s : saveState.getIncorrectlyGuessedLetters()) {
+    			word.checkGuess(s);
+    		}
     	}
     }
     
@@ -226,6 +228,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	word.checkGuess(s);
     }
     
+
     public boolean checkPrevSaveState() {
     	String resumeQuestion;
 
@@ -250,6 +253,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		saveState.cleanup();
     	
     	return(n==0);
+    }
+    
+    public void updateIncorrectGuesses(ArrayList<String> s) {
+    	input.updateIncorrectGuesses(s);
     }
     
     /**
@@ -283,8 +290,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
     	int guesses = 0;
     	
-    	if (cfgState==configState.resumeGame)
+    	if (cfgState==configState.resumeGame) {
     		guesses = saveState.getNumOfGuesses();
+    		
+    	}
     	
     	createComponents(newWord, guesses);
     	addGameUI();
@@ -336,6 +345,34 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	this.remove(btnTogglePanel);
         btnReplay.setVisible(false);
         drawing.resetHangman();
+    }
+    
+    
+    public void win() {
+    	// Create a dialog window asking the user if they want to
+    	// start over with a new word.
+    	Object[] options = {"New word",
+    	                    "Same word"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "You won! Play again?",
+    	    "You won!",
+    	    JOptionPane.YES_NO_CANCEL_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);
+    	
+    	if(n!=2) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(configState.newGame);
+    	}
+    }
+    
+    public void checkWinCondition() {
+    	if(word.checkWinCondition()) {
+    		win();
+    	}
     }
     
     /**
@@ -400,7 +437,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     private void savePrevGame(boolean saveToFile) {
-    	saveState.save(word.getWord(), getDrawing().getIncorrectGuesses(), word.getCorrectGuesses());
+    	saveState.save(word.getWord(), getDrawing().getIncorrectGuesses(), word.getCorrectGuesses(), word.getIncorrectGuesses());
     	if(saveToFile)
     		saveState.saveGameState();
     }
