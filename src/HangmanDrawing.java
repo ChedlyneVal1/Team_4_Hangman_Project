@@ -1,14 +1,12 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class HangmanDrawing extends JPanel {
 	
 	private JPanel drawingPanel;
 	private JLabel drawingLabel;
+	private JTextArea incorrectGuessArea;
 	
 	private HangmanFrame hmf;
 	
@@ -40,6 +38,7 @@ public class HangmanDrawing extends JPanel {
 		drawingPanel.setBounds(0, 50, 350, 550);
 		drawingPanel.setVisible(true);
 		drawingPanel.add(drawingLabel);
+
 	}
 	
 	/**
