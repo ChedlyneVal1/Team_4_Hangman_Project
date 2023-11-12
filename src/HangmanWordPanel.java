@@ -20,8 +20,9 @@ public class HangmanWordPanel {
 	private int trackSpaces = 0;
 	private ArrayList<String> words;
 	private ArrayList<Character> letters;
+	private ArrayList<Character> guessedLetters;
+	private ArrayList<Character> correctlyGuessedLetters;
 	private ArrayList<String> incorrectLetters;
-	private ArrayList<String> guessedLetters;
 	private ArrayList<Boolean> correctLetters;
 
 	private Font font;
@@ -57,10 +58,11 @@ public class HangmanWordPanel {
 
 		letters = new ArrayList<Character>();
 		incorrectLetters = new ArrayList<String>();
-		guessedLetters = new ArrayList<String>();
+		guessedLetters = new ArrayList<Character>();
 		correctLetters = new ArrayList<Boolean>();
 		words = new ArrayList<String>();
-		
+		correctlyGuessedLetters = new ArrayList<Character>();
+
 		wordPanel = new JPanel();
 		wordPanel.setLayout(null);
 		wordPanel.setBackground(Color.LIGHT_GRAY);
@@ -111,7 +113,25 @@ public class HangmanWordPanel {
 		return this.currentWord.length();
 	}
 
+	/**
+	 * A method to return the correctly guessed letters.
+	 * @return An array containing the all correctly guessed letters.
+	 */
+	public ArrayList<Character> getCorrectGuesses() {
 
+		return this.correctlyGuessedLetters;
+	}
+
+	public ArrayList<String> getIncorrectGuesses() {
+
+		return this.incorrectLetters;
+	}
+	
+	public void setIncorrectGuesses(ArrayList<String> incorrectGuesses) {
+
+		this.incorrectLetters = incorrectGuesses;
+	}
+	
 	/**
 	 * A method to convert a phrase into a ArrayList<String>, and to initialize the values for the associated correctLetters ArrayList<Character>.
 	 */
@@ -244,42 +264,46 @@ public class HangmanWordPanel {
 		int ltrIdx = 0;
 		String usedLetters = "";
 		String charStr;
-		if(guessedLetters.contains(aGuess)){
+		boolean alreadyGuessed = false;
+		if(guessedLetters.contains(aGuess.charAt(0))){
 			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+			alreadyGuessed = true;
 		}
 		else {
-			guessedLetters.add(aGuess);
+			guessedLetters.add(aGuess.charAt(0));
 			usedLetters = usedLetters + " " + aGuess;
 		}
 
-
-		for (int i = 0; i < words.size(); i++)
-		{
-			for (int j = 0; j < words.get(i).length(); j++)
+		if (!alreadyGuessed) {
+			for (int i = 0; i < words.size(); i++)
 			{
-				charStr = words.get(i).substring(j, j + 1);
-
-
-				if (aGuess.equalsIgnoreCase(charStr))
+				for (int j = 0; j < words.get(i).length(); j++)
 				{
-					charLabel[ltrIdx].setText(charStr);
-					int x = charLabel[ltrIdx].getX();
-					int y = charLabel[ltrIdx].getY();
-					int w = charLabel[ltrIdx].getWidth();
-					int h = charLabel[ltrIdx].getHeight();
-					charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
-					charLabel[ltrIdx].setBounds(x, y, w, h);
-					isCorrect = true;
-					
-					correctLetters.set(ltrIdx, true);
+					charStr = words.get(i).substring(j, j + 1);
+	
+	
+					if (aGuess.equalsIgnoreCase(charStr))
+					{
+						charLabel[ltrIdx].setText(charStr);
+						int x = charLabel[ltrIdx].getX();
+						int y = charLabel[ltrIdx].getY();
+						int w = charLabel[ltrIdx].getWidth();
+						int h = charLabel[ltrIdx].getHeight();
+						charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
+						charLabel[ltrIdx].setBounds(x, y, w, h);
+						if(!isCorrect)
+							correctlyGuessedLetters.add(aGuess.charAt(0));
+						isCorrect = true;
+						correctLetters.set(ltrIdx, true);
+					}
+								
+					ltrIdx++;
 				}
-							
-				ltrIdx++;
 			}
-		}
-		
-		if(!isCorrect) {
-			incorrectGuessCheck(aGuess);
+			
+			if(!isCorrect) {
+				incorrectGuessCheck(aGuess);
+			}
 		}
 	}
 	

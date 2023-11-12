@@ -65,8 +65,11 @@ public class HangmanDrawing extends JPanel {
         	hmf.showLostScreen();
         }
 	}
-	public void setIIncorrectGuesses() {
-		incorrectGuesses = 0;
+	public void setIncorrectGuesses(int guesses) {
+		incorrectGuesses = guesses;
+	}
+	public int getIncorrectGuesses() {
+		return incorrectGuesses;
 	}
 	public void resetHangman() {
 		incorrectGuesses = 0;
