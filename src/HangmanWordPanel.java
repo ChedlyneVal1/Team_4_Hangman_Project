@@ -264,43 +264,46 @@ public class HangmanWordPanel {
 		int ltrIdx = 0;
 		String usedLetters = "";
 		String charStr;
-		if(guessedLetters.contains(aGuess)){
+		boolean alreadyGuessed = false;
+		if(guessedLetters.contains(aGuess.charAt(0))){
 			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+			alreadyGuessed = true;
 		}
 		else {
 			guessedLetters.add(aGuess.charAt(0));
 			usedLetters = usedLetters + " " + aGuess;
 		}
 
-
-		for (int i = 0; i < words.size(); i++)
-		{
-			for (int j = 0; j < words.get(i).length(); j++)
+		if (!alreadyGuessed) {
+			for (int i = 0; i < words.size(); i++)
 			{
-				charStr = words.get(i).substring(j, j + 1);
-
-
-				if (aGuess.equalsIgnoreCase(charStr))
+				for (int j = 0; j < words.get(i).length(); j++)
 				{
-					charLabel[ltrIdx].setText(charStr);
-					int x = charLabel[ltrIdx].getX();
-					int y = charLabel[ltrIdx].getY();
-					int w = charLabel[ltrIdx].getWidth();
-					int h = charLabel[ltrIdx].getHeight();
-					charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
-					charLabel[ltrIdx].setBounds(x, y, w, h);
-					if(!isCorrect)
-						correctlyGuessedLetters.add(aGuess.charAt(0));
-					isCorrect = true;
-					correctLetters.set(ltrIdx, true);
+					charStr = words.get(i).substring(j, j + 1);
+	
+	
+					if (aGuess.equalsIgnoreCase(charStr))
+					{
+						charLabel[ltrIdx].setText(charStr);
+						int x = charLabel[ltrIdx].getX();
+						int y = charLabel[ltrIdx].getY();
+						int w = charLabel[ltrIdx].getWidth();
+						int h = charLabel[ltrIdx].getHeight();
+						charLabel[ltrIdx].setFont(new Font("Dialog", 1, 22));
+						charLabel[ltrIdx].setBounds(x, y, w, h);
+						if(!isCorrect)
+							correctlyGuessedLetters.add(aGuess.charAt(0));
+						isCorrect = true;
+						correctLetters.set(ltrIdx, true);
+					}
+								
+					ltrIdx++;
 				}
-							
-				ltrIdx++;
 			}
-		}
-		
-		if(!isCorrect) {
-			incorrectGuessCheck(aGuess);
+			
+			if(!isCorrect) {
+				incorrectGuessCheck(aGuess);
+			}
 		}
 	}
 	

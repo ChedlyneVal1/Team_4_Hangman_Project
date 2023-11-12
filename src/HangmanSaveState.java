@@ -75,7 +75,7 @@ public class HangmanSaveState implements Serializable {
 	}
 	
 	private void copyGameState(HangmanSaveState copy) {
-		save(copy.getPrevWord(), copy.getNumOfGuesses(), copy.getCorrectlyGuessedLetters(), copy.getIncorrectlyGuessedLetters());
+		save(copy.getPrevWord(), copy.getCorrectlyGuessedLetters(), copy.getIncorrectlyGuessedLetters());
 	}
 	
 	private void removeSaveFile() {
@@ -90,9 +90,9 @@ public class HangmanSaveState implements Serializable {
 		return f.exists();
 	}
 	
-	public void save(String word, int guesses, ArrayList<Character> correctGuesses, ArrayList<String> incorrectGuesses) {
+	public void save(String word, ArrayList<Character> correctGuesses, ArrayList<String> incorrectGuesses) {
 		setPrevWord(word);
-		setNumOfGuesses(guesses);
+		setNumOfGuesses(correctGuesses.size() + incorrectGuesses.size());
 		setCorrectlyGuessedLetters(correctGuesses);
 		setIncorrectlyGuessedLetters(incorrectGuesses);
 	}

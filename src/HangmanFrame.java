@@ -437,7 +437,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     private void savePrevGame(boolean saveToFile) {
-    	saveState.save(word.getWord(), getDrawing().getIncorrectGuesses(), word.getCorrectGuesses(), word.getIncorrectGuesses());
+    	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses());
     	if(saveToFile)
     		saveState.saveGameState();
     }
