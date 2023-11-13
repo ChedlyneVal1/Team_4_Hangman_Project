@@ -347,6 +347,12 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
     
+    public void checkWinCondition() {
+    	if(word.checkWinCondition()) {
+    		win();
+    	}
+    }
+    
     public void win() {
     	// Create a dialog window asking the user if they want to
     	// start over with a new word.
@@ -361,16 +367,35 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	    options,
     	    options[1]);
     	
-    	if(n!=2) {
+    	resetGame(n);
+    }
+    
+    public void showLostScreen() {
+    	// Create a dialog window asking the user if they want to
+    	// start over with a new word.
+    	Object[] options = {"New word",
+    	                    "Same word"};
+    	int n = JOptionPane.showOptionDialog(this,
+    	    "You Lost! Play again?",
+    	    "You won!",
+    	    JOptionPane.YES_NO_CANCEL_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);
+    	
+    	resetGame(n);
+    }
+    
+    private void resetGame(int n) {
+    	if(n==0) {
     		// Reset game ui
     		configMainUI();
     		configGameUI(configState.newGame);
-    	}
-    }
-    
-    public void checkWinCondition() {
-    	if(word.checkWinCondition()) {
-    		win();
+    	} else if(n==1) {
+    		// Reset game ui
+    		configMainUI();
+    		configGameUI(configState.replayGame);
     	}
     }
     
@@ -439,21 +464,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses());
     	if(saveToFile)
     		saveState.saveGameState();
-    }
-    
-    public void showLostScreen() {
-        Object[] options = {"Replay", "Cancel"};
-        int n = JOptionPane.showOptionDialog(this,
-        	    "You Lost!",
-        	    "Play Again",
-        	    JOptionPane.YES_NO_CANCEL_OPTION,
-        	    JOptionPane.QUESTION_MESSAGE,
-        	    null,
-        	    options,
-        	    options[1]);
-        if(n!=1) {
-    		replayPressed();
-    	}
     }
     
     public HangmanDrawing getDrawing() {
