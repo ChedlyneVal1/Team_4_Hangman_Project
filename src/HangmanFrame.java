@@ -184,7 +184,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
         this.setLayout(null);
         this.add(gameStartPanel);
         this.add(btnTogglePanel);
-
         this.setTitle("Hangman");
         this.setSize(800, 600);
 

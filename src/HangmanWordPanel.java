@@ -24,6 +24,7 @@ public class HangmanWordPanel {
 	private ArrayList<Character> correctlyGuessedLetters;
 	private ArrayList<String> incorrectLetters;
 	private ArrayList<Boolean> correctLetters;
+	private JTextArea dashTextArea;
 
 	private Font font;
 
@@ -49,7 +50,7 @@ public class HangmanWordPanel {
 	}
 
 	/**
-	 * A method to initialize the JPanels and JLabels associated with the HangmanWordPanel class.
+	 * A method to initialize the JPanels, JLabels and JTextAreas associated with the HangmanWordPanel class.
 	 */
 	private void init()
 	{
@@ -68,6 +69,18 @@ public class HangmanWordPanel {
 		wordPanel.setBackground(Color.LIGHT_GRAY);
 		wordPanel.setBounds(350, 50, 450, 350);
 		wordPanel.setVisible(true);
+
+		dashTextArea = new JTextArea();
+		dashTextArea.setBounds(50, 25, 350, 50);
+		dashTextArea.setBackground(Color.LIGHT_GRAY);
+		wordPanel.add(dashTextArea);
+		dashTextArea.setText("Guess this word or phrase:");
+		dashTextArea.setFont(new Font("Serif", Font.BOLD, 20));
+		dashTextArea.setEditable(false);
+		dashTextArea.setVisible(true);
+
+
+
 	}
 
 
@@ -266,7 +279,7 @@ public class HangmanWordPanel {
 		String charStr;
 		boolean alreadyGuessed = false;
 		if(guessedLetters.contains(aGuess.charAt(0))){
-			JOptionPane.showMessageDialog(this.hmf, "You already guessed letter " + aGuess + " buddy you can’t guess it twice!");
+			JOptionPane.showMessageDialog(this.hmf, "Letter " + aGuess + " has already been guessed!");
 			alreadyGuessed = true;
 		}
 		else {
