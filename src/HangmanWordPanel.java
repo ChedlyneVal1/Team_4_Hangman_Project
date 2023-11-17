@@ -326,7 +326,8 @@ public class HangmanWordPanel {
 			incorrectLetters.add(s.toLowerCase());
 			Collections.sort(incorrectLetters, String.CASE_INSENSITIVE_ORDER);
 			this.hmf.updateIncorrectGuesses(incorrectLetters);
-			hmf.getDrawing().updateHangman();
+			
+			hmf.updateHangman();
 		}
 	}
 	

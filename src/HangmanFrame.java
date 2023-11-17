@@ -13,14 +13,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JButton btnToggle;
     private static JButton btnReplay;
     private static JButton btnExit;
+    private static JButton btnDifficulty;
     private static JTextArea gameInstructions;
 
     private HangmanDrawing drawing;
     private HangmanInput input;
     private HangmanWordPanel word;
     private WordGeneration wordGen = WordGeneration.getInstance();
-    private String wordString;
     private HangmanSaveState saveState;
+    
+    private int difficulty = 0; //0 = easy, 1 = medium, 2 = hard
 
 
     private ImageIcon image = new ImageIcon("start.png");
@@ -81,8 +83,22 @@ public class HangmanFrame extends JFrame implements ActionListener {
         } else if (e.getSource()== btnExit) {
         	//Ask if the user wants to save where they left off
         	this.quitPressed();
+        } else if (e.getSource() == btnDifficulty) {
+        	difficultySelection();
         }
 
+    }
+    
+    private void difficultySelection() {
+    	Object[] options = {"Easy", "Medium", "Hard"};
+        difficulty = JOptionPane.showOptionDialog(this,
+                "Select Difficulty:\n\nEasy - up to 5 incorrect guesses allowed.\n\nMedium - up to 2 incorrect guesses allowed.\n\nHard - only 1 incorrect guess allowed.",
+                "Difficulty Selection",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
     }
 
 
@@ -114,6 +130,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnTogglePanel.setBackground(Color.WHITE);
         btnTogglePanel.add(btnToggle);
         btnTogglePanel.add(btnReplay);
+        btnTogglePanel.add(btnDifficulty);
         btnTogglePanel.add(btnExit);
         btnTogglePanel.setBounds(0, 0, 800, 50);
         btnTogglePanel.setVisible(true);
@@ -156,9 +173,14 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnReplay.addActionListener(this);
 
         btnExit = new JButton("Exit");
-        btnExit.setBounds(455, 15, 100, 30);
+        btnExit.setBounds(570, 15, 100, 30);
         btnExit.setVisible(true);
         btnExit.addActionListener(this);
+        
+        btnDifficulty = new JButton("Difficulty");
+        btnDifficulty.setBounds(455, 15, 100, 30);
+        btnDifficulty.setVisible(true);
+        btnDifficulty.addActionListener(this);
 
 
 
@@ -331,6 +353,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	this.remove(gameStartPanel);
     	btnToggle.setText("Back");
         btnReplay.setVisible(true);
+        btnDifficulty.setVisible(false);
     }
     
     /**
@@ -343,6 +366,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
     	this.remove(btnTogglePanel);
         btnReplay.setVisible(false);
+        btnDifficulty.setVisible(true);
         drawing.resetHangman();
     }
     
@@ -377,7 +401,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	                    "Same word"};
     	int n = JOptionPane.showOptionDialog(this,
     	    "You Lost! Play again?",
-    	    "You won!",
+    	    "You lost!",
     	    JOptionPane.YES_NO_CANCEL_OPTION,
     	    JOptionPane.QUESTION_MESSAGE,
     	    null,
@@ -466,7 +490,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		saveState.saveGameState();
     }
     
-    public HangmanDrawing getDrawing() {
-        return drawing;
+    public void updateHangman() {
+    	if(difficulty == 0) {
+    		drawing.updateHangman();
+    	} else if (difficulty == 1) {
+    		drawing.updateHangman();
+    		drawing.updateHangman();
+    	} else {
+    		drawing.updateHangman();
+    		drawing.updateHangman();
+    		drawing.updateHangman();
+    	}
     }
 }
