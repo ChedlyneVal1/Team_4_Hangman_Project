@@ -90,4 +90,12 @@ public class WordGeneration {
 		
 	}
 	
+	public WordGeneration.Theme getCurTheme() {
+		return curTheme;
+	}
+	
+	public void setCurTheme(WordGeneration.Theme newTheme) {
+		curTheme = newTheme;
+	}
+	
 }

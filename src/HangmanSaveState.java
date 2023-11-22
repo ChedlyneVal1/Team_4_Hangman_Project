@@ -21,7 +21,7 @@ public class HangmanSaveState implements Serializable {
 	// difficulty setting
 	private int difficulty;
 	// theme setting
-	private int theme;
+	private WordGeneration.Theme theme;
 	
 	
 	// Getters and Setters
@@ -46,9 +46,9 @@ public class HangmanSaveState implements Serializable {
 	
 	private void setDifficulty(int inDifficulty) {difficulty = inDifficulty;}
 	
-	public int getTheme() {return theme;}
+	public WordGeneration.Theme getTheme() {return theme;}
 	
-	private void setTheme(int inTheme) {theme = inTheme;}
+	private void setTheme(WordGeneration.Theme inTheme) {theme = inTheme;}
 	
 	// End of Getters and Setters
 	
@@ -106,7 +106,7 @@ public class HangmanSaveState implements Serializable {
 	}
 	
 	public void save(String word, ArrayList<Character> correctGuesses, ArrayList<String> incorrectGuesses,
-			int savedDiff, int savedTheme) {
+			int savedDiff, WordGeneration.Theme savedTheme) {
 		setPrevWord(word);
 		setNumOfGuesses(correctGuesses.size() + incorrectGuesses.size());
 		setCorrectlyGuessedLetters(correctGuesses);

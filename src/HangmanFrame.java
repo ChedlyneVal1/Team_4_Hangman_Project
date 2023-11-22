@@ -113,7 +113,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         
         if(option == 0) {
         	difficultySelection();
-        } else {
+        } else if (option == 1){
         	openThemeWindow();
         }
     }
@@ -341,7 +341,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	if (cfgState==configState.resumeGame) {
     		guesses = saveState.getNumOfGuesses();
     		difficulty = saveState.getDifficulty();
-    		
+    		wordGen.loadTheme(saveState.getTheme());
     	}
     	
     	createComponents(newWord, guesses);
@@ -514,7 +514,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     private void savePrevGame(boolean saveToFile) {
     	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses(),
-    			difficulty, 0);
+    			difficulty, wordGen.getCurTheme());
     	if(saveToFile)
     		saveState.saveGameState();
     }
@@ -535,7 +535,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private void openThemeWindow() {
     	String[] themes = {"None", "Animals", "Cartoons and Superheroes", "Movies", "Science", "Sports"};
 
-    	Object selected = JOptionPane.showInputDialog(null, "Choose a theme", "Selection", JOptionPane.DEFAULT_OPTION, null, themes, "0");
+    	Object selected = JOptionPane.showInputDialog(null, "Choose a theme", "Themes", JOptionPane.DEFAULT_OPTION, null, themes, "0");
     	if ( selected != null ){//null if the user cancels.
     		WordGeneration.Theme myTheme = WordGeneration.Theme.NONE;
     		switch(selected.toString()) {
