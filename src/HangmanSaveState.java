@@ -18,6 +18,12 @@ public class HangmanSaveState implements Serializable {
 	private ArrayList<Character> correctlyGuessedLetters;
 	//letters guessed
 	private ArrayList<String> incorrectlyGuessedLetters;
+	// difficulty setting
+	private int difficulty;
+	// theme setting
+	private int theme;
+	
+	
 	// Getters and Setters
 	
 	public String getPrevWord() {return prevWord;}
@@ -35,6 +41,14 @@ public class HangmanSaveState implements Serializable {
 	public ArrayList<String> getIncorrectlyGuessedLetters() {return incorrectlyGuessedLetters;}
 	
 	private void setIncorrectlyGuessedLetters(ArrayList<String> incorrectGuesses) {incorrectlyGuessedLetters = incorrectGuesses;}
+	
+	public int getDifficulty() {return difficulty;}
+	
+	private void setDifficulty(int inDifficulty) {difficulty = inDifficulty;}
+	
+	public int getTheme() {return theme;}
+	
+	private void setTheme(int inTheme) {theme = inTheme;}
 	
 	// End of Getters and Setters
 	
@@ -75,7 +89,8 @@ public class HangmanSaveState implements Serializable {
 	}
 	
 	private void copyGameState(HangmanSaveState copy) {
-		save(copy.getPrevWord(), copy.getCorrectlyGuessedLetters(), copy.getIncorrectlyGuessedLetters());
+		save(copy.getPrevWord(), copy.getCorrectlyGuessedLetters(), copy.getIncorrectlyGuessedLetters(),
+				copy.getDifficulty(), copy.getTheme());
 	}
 	
 	private void removeSaveFile() {
@@ -90,11 +105,14 @@ public class HangmanSaveState implements Serializable {
 		return f.exists();
 	}
 	
-	public void save(String word, ArrayList<Character> correctGuesses, ArrayList<String> incorrectGuesses) {
+	public void save(String word, ArrayList<Character> correctGuesses, ArrayList<String> incorrectGuesses,
+			int savedDiff, int savedTheme) {
 		setPrevWord(word);
 		setNumOfGuesses(correctGuesses.size() + incorrectGuesses.size());
 		setCorrectlyGuessedLetters(correctGuesses);
 		setIncorrectlyGuessedLetters(incorrectGuesses);
+		setDifficulty(savedDiff);
+		setTheme(savedTheme);
 	}
 	
 	public void cleanup() {
