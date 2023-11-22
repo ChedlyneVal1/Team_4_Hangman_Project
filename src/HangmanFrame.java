@@ -100,6 +100,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
                 options,
                 options[0]);
     }
+    
+    public static void main(String[] args) throws Exception
+	{
+		HangmanFrame hmF = new HangmanFrame();
+		hmF.createLabels();
+		hmF.createButtons();
+		hmF.createPanels();
+		hmF.configFrame();
+		hmF.createTextArea();
+	}
 
     private void createPanels()	{
 		//panel that appears on start up
@@ -110,15 +120,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		gameStartPanel.setVisible(true);
 		gameStartPanel.add(gameStartLabel);
 
-		//panel that holds the label holding the buttons
-		btnTogglePanel = new JPanel();
-		btnTogglePanel.setLayout(null);
-		btnTogglePanel.setBackground(Color.WHITE);
-		btnTogglePanel.add(btnToggle);
-		btnTogglePanel.add(btnReplay);
-		btnTogglePanel.add(btnExit);
-		btnTogglePanel.setBounds(0, 0, 800, 50);
-		btnTogglePanel.setVisible(true);
+		   //panel that holds the label holding the buttons
+        btnTogglePanel = new JPanel();
+        btnTogglePanel.setLayout(null);
+        btnTogglePanel.setBackground(Color.WHITE);
+        btnTogglePanel.add(btnToggle);
+        btnTogglePanel.add(btnReplay);
+        btnTogglePanel.add(btnDifficulty);
+        btnTogglePanel.add(btnExit);
+        btnTogglePanel.setBounds(0, 0, 800, 50);
+        btnTogglePanel.setVisible(true);
 	}
 
 
@@ -143,33 +154,28 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		String playResumeButton = "Play";
 		if(gState == gameState.pause)
 			playResumeButton = "Resume";
-        //panel that holds the label holding the buttons
-        btnTogglePanel = new JPanel();
-        btnTogglePanel.setLayout(null);
-        btnTogglePanel.setBackground(Color.WHITE);
-        btnTogglePanel.add(btnToggle);
-        btnTogglePanel.add(btnReplay);
-        btnTogglePanel.add(btnDifficulty);
-        btnTogglePanel.add(btnExit);
-        btnTogglePanel.setBounds(0, 0, 800, 50);
-        btnTogglePanel.setVisible(true);
 
-		//initiates button that toggles between Play and Back
-		btnToggle = new JButton(playResumeButton);
-		btnToggle.setBounds(340, 15, 100, 30);
-		btnToggle.setVisible(true);
-		btnToggle.addActionListener(this);
+	    //initiates button that toggles between Play and Back
+        btnToggle = new JButton(playResumeButton);
+        btnToggle.setBounds(340, 15, 100, 30);
+        btnToggle.setVisible(true);
+        btnToggle.addActionListener(this);
+        
+        //initiates button that Replays
+        btnReplay = new JButton("Replay");
+        btnReplay.setBounds(225, 15, 100, 30);
+        btnReplay.setVisible(false);
+        btnReplay.addActionListener(this);
 
-		//initiates button that Replays
-		btnReplay = new JButton("Replay");
-		btnReplay.setBounds(225, 15, 100, 30);
-		btnReplay.setVisible(false);
-		btnReplay.addActionListener(this);
-
-		btnExit = new JButton("Exit");
-		btnExit.setBounds(455, 15, 100, 30);
-		btnExit.setVisible(true);
-		btnExit.addActionListener(this);
+        btnExit = new JButton("Exit");
+        btnExit.setBounds(570, 15, 100, 30);
+        btnExit.setVisible(true);
+        btnExit.addActionListener(this);
+        
+        btnDifficulty = new JButton("Difficulty");
+        btnDifficulty.setBounds(455, 15, 100, 30);
+        btnDifficulty.setVisible(true);
+        btnDifficulty.addActionListener(this);
 
 	}
 
