@@ -16,13 +16,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JButton btnExit;
     private static JButton btnOptions;
     private static JTextArea gameInstructions;
-	private static JRadioButton phraseButton;
-	private static JRadioButton animalButton;
-	private static JRadioButton cartoonsButton;
-	private static JRadioButton moviesButton;
-	private static JRadioButton scienceButton;
-	private static JRadioButton sportsButton;
-	private static JPanel radioPanel;
 
     private HangmanDrawing drawing;
     private HangmanInput input;
@@ -61,42 +54,38 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
-    	if(e.getSource().getClass() == btnToggle.getClass()) {
-	        if(e.getSource() == btnToggle){
-	            if (btnToggle.getText().equals("Play")){
-	            	
-	            	configState curState = configState.newGame;
-	            	
-	            	if(initialStart) {
-	            		if(saveState.isPrevSavedGame()) {
-			            	// Ask player if they would like to replay the last saved game?
-			            	if(this.checkPrevSaveState())
-			            		curState = configState.resumeGame;
-	            		}
-		            	initialStart = false;
-	            	}
-	            	
-	                configGameUI(curState);
-	                gState = gameState.inGame;
-	            } else if (btnToggle.getText().equals("Resume")) {
-	            	configGameUI(configState.resumeGame);
-	            } else {
-	            	gState = gameState.pause;
-	            	this.savePrevGame(false);
-	            	configMainUI();
-	            }
-	        } else if (e.getSource() == btnReplay) {
-	        	replayPressed();
-	        } else if (e.getSource()== btnExit) {
-	        	//Ask if the user wants to save where they left off
-	        	this.quitPressed();
-	        } else if (e.getSource() == btnOptions) {
-	        	showOptions();
-	        }
-    	} else if(e.getSource().getClass() == btnToggle.getClass()) {
-    		
-    	}
+
+        if(e.getSource() == btnToggle){
+            if (btnToggle.getText().equals("Play")){
+            	
+            	configState curState = configState.newGame;
+            	
+            	if(initialStart) {
+            		if(saveState.isPrevSavedGame()) {
+		            	// Ask player if they would like to replay the last saved game?
+		            	if(this.checkPrevSaveState())
+		            		curState = configState.resumeGame;
+            		}
+	            	initialStart = false;
+            	}
+            	
+                configGameUI(curState);
+                gState = gameState.inGame;
+            } else if (btnToggle.getText().equals("Resume")) {
+            	configGameUI(configState.resumeGame);
+            } else {
+            	gState = gameState.pause;
+            	this.savePrevGame(false);
+            	configMainUI();
+            }
+        } else if (e.getSource() == btnReplay) {
+        	replayPressed();
+        } else if (e.getSource()== btnExit) {
+        	//Ask if the user wants to save where they left off
+        	this.quitPressed();
+        } else if (e.getSource() == btnOptions) {
+        	showOptions();
+        }
 
     }
     
@@ -129,31 +118,27 @@ public class HangmanFrame extends JFrame implements ActionListener {
                 options,
                 options[0]);
     }
-
-
+    
     public static void main(String[] args) throws Exception
-    {	
-        HangmanFrame hmF = new HangmanFrame();
-        hmF.createLabels();
-        hmF.createButtons();
-        hmF.createPanels();
-        hmF.configFrame();
-        hmF.createTextArea();
-    }
+	{
+		HangmanFrame hmF = new HangmanFrame();
+		hmF.createLabels();
+		hmF.createButtons();
+		hmF.createPanels();
+		hmF.configFrame();
+		hmF.createTextArea();
+	}
 
+    private void createPanels()	{
+		//panel that appears on start up
+		gameStartPanel = new JPanel();
+		gameStartPanel.setLayout(null);
+		gameStartPanel.setBackground(Color.WHITE);
+		gameStartPanel.setBounds(0, 50, 800, 550);
+		gameStartPanel.setVisible(true);
+		gameStartPanel.add(gameStartLabel);
 
-    private void createPanels()
-    {
-        //panel that appears on start up
-        gameStartPanel = new JPanel();
-        gameStartPanel.setLayout(null);
-        gameStartPanel.setBackground(Color.WHITE);
-        gameStartPanel.setBounds(0, 50, 800, 550);
-        gameStartPanel.setVisible(true);
-        gameStartPanel.add(gameStartLabel);
-
-
-        //panel that holds the label holding the buttons
+		   //panel that holds the label holding the buttons
         btnTogglePanel = new JPanel();
         btnTogglePanel.setLayout(null);
         btnTogglePanel.setBackground(Color.WHITE);
@@ -163,34 +148,31 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnTogglePanel.add(btnExit);
         btnTogglePanel.setBounds(0, 0, 800, 50);
         btnTogglePanel.setVisible(true);
-       
-    }
+	}
+
+	private void createLabels()
+	{
+		//label that holds start game image
+		gameStartLabel = new JLabel();
+		gameStartLabel.setBounds(0, 0, 800, 550);
+		gameStartLabel.setVisible(true);
+		gameStartLabel.setIcon(image);//image needs to be designed
+
+		//label that will hold the buttons
+		//TODO I don't think any of this is necessary
+		//btnToggleLabel = new JLabel();
+		//btnToggleLabel.setBounds(0, 0, 800, 50);
+		//btnToggleLabel.setOpaque(true);
+		//btnToggleLabel.setVisible(true);
+	}
 
 
-    private void createLabels()
-    {
-        //label that holds start game image
-        gameStartLabel = new JLabel();
-        gameStartLabel.setBounds(0, 0, 800, 550);
-        gameStartLabel.setVisible(true);
-        gameStartLabel.setIcon(image);//image needs to be designed
+	private void createButtons(){
+		String playResumeButton = "Play";
+		if(gState == gameState.pause)
+			playResumeButton = "Resume";
 
-
-        //label that will hold the buttons
-        //TODO I don't think any of this is necessary
-        //btnToggleLabel = new JLabel();
-        //btnToggleLabel.setBounds(0, 0, 800, 50);
-        //btnToggleLabel.setOpaque(true);
-        //btnToggleLabel.setVisible(true);
-    }
-
-
-    private void createButtons(){
-    	String playResumeButton = "Play";
-    	if(gState == gameState.pause)
-    		playResumeButton = "Resume";
-    	
-        //initiates button that toggles between Play and Back
+	    //initiates button that toggles between Play and Back
         btnToggle = new JButton(playResumeButton);
         btnToggle.setBounds(340, 15, 100, 30);
         btnToggle.setVisible(true);
@@ -211,33 +193,33 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnOptions.setBounds(455, 15, 100, 30);
         btnOptions.setVisible(true);
         btnOptions.addActionListener(this);
-    }
+	}
 
-    private void createTextArea()
-    {
-        gameInstructions = new JTextArea();
-        gameInstructions.setBounds(25, 450, 800, 100);
-        gameStartLabel.add(gameInstructions);
-        gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
-                "   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
-                "   player is hanged (and loses). ");
-        gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
-        gameInstructions.setEditable(false);
-        gameInstructions.setVisible(true);
-    }
-
-    private void configFrame()
-    {  //configures components on HangmanFrame
+	private void createTextArea()
+	{
+		gameInstructions = new JTextArea();
+		gameInstructions.setBounds(25, 450, 800, 100);
+		gameStartLabel.add(gameInstructions);
+		gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
+				"   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
+				"   player is hanged (and loses). ");
+		gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
+		gameInstructions.setEditable(false);
+		gameInstructions.setVisible(true);
+	}
 
 
-        this.setLayout(null);
-        this.add(gameStartPanel);
-        this.add(btnTogglePanel);
-        this.setTitle("Hangman");
-        this.setSize(800, 600);
+	private void configFrame()
+	{  //configures components on HangmanFrame
 
-        this.setResizable(false);
-        this.setVisible(true);
+		this.setLayout(null);
+		this.add(gameStartPanel);
+		this.add(btnTogglePanel);
+		this.setTitle("Hangman");
+		this.setSize(800, 600);
+
+		this.setResizable(false);
+		this.setVisible(true);
     }
 
     private void drawHangman()
@@ -404,113 +386,140 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		win();
     	}
     }
-    
-    public void win() {
-    	// Create a dialog window asking the user if they want to
-    	// start over with a new word.
-    	Object[] options = {"New word",
-    	                    "Same word"};
-    	int n = JOptionPane.showOptionDialog(this,
-    	    "You won! Play again?",
-    	    "You won!",
-    	    JOptionPane.YES_NO_CANCEL_OPTION,
-    	    JOptionPane.QUESTION_MESSAGE,
-    	    null,
-    	    options,
-    	    options[1]);
-    	
-    	resetGame(n);
-    }
-    
-    public void showLostScreen() {
-    	// Create a dialog window asking the user if they want to
-    	// start over with a new word.
-    	Object[] options = {"New word",
-    	                    "Same word"};
-    	int n = JOptionPane.showOptionDialog(this,
-    	    "You Lost! Play again?",
-    	    "You lost!",
-    	    JOptionPane.YES_NO_CANCEL_OPTION,
-    	    JOptionPane.QUESTION_MESSAGE,
-    	    null,
-    	    options,
-    	    options[1]);
-    	
-    	resetGame(n);
-    }
-    
-    private void resetGame(int n) {
-    	if(n==0) {
-    		// Reset game ui
-    		configMainUI();
-    		configGameUI(configState.newGame);
-    	} else if(n==1) {
-    		// Reset game ui
-    		configMainUI();
-    		configGameUI(configState.replayGame);
-    	}
-    }
-    
-    /**
-     * A method to handle replaying the game
-     */
-    private void replayPressed() {
-    	// Create a dialog window asking the user if they want to
-    	// start over with a new word.
-    	Object[] options = {"New word",
-    	                    "Same word",
-    	                    "Cancel"};
-    	int n = JOptionPane.showOptionDialog(this,
-    	    "How do you want to restart?",
-    	    "Replay",
-    	    JOptionPane.YES_NO_CANCEL_OPTION,
-    	    JOptionPane.QUESTION_MESSAGE,
-    	    null,
-    	    options,
-    	    options[2]);
-    	
-    	if(n==0) {
-    		// Reset game ui
-    		configMainUI();
-    		configGameUI(configState.newGame);
-    	} else if(n==1) {
-    		// Reset game ui
-    		configMainUI();
-    		configGameUI(configState.replayGame);
-    	}
-    }
-    	
-	/**
-     * A method to handle saving the game
-     */
-    private void quitPressed() {
-    	boolean quitGame = true;
-    	if(gState != gameState.start) {
-	    	// Create a dialog window asking the user if they want to
-	    	// save their progress with the current game.
-	    	Object[] options = {"Yes",
-	    	                    "No",
-	    	                    "Cancel"};
-	    	int n = JOptionPane.showOptionDialog(this,
-	    	    "Would you like to save before quitting?",
-	    	    "Quit",
-	    	    JOptionPane.YES_NO_CANCEL_OPTION,
-	    	    JOptionPane.QUESTION_MESSAGE,
-	    	    null,
-	    	    options,
-	    	    options[2]);
-	    	
-	    	if(n==0)
-	    		this.savePrevGame(true);
-	    	else if(n==2)
-	    		quitGame = false;
+	
 
-    	}
-    	
-    	// See if we want to exit the game
-    	if(quitGame)
-    		this.dispose();
-    }
+	public void playWinSound() {
+		String audioFilePath = "gameWon.wav";
+		SoundGeneration player = new SoundGeneration();
+		player.play(audioFilePath);
+	}
+
+	public void playLostSound() {
+		String audioFilePath = "gameLost.wav";
+		SoundGeneration player = new SoundGeneration();
+		player.play(audioFilePath);
+	}
+
+
+	public void win() {
+		// Create a dialog window asking the user if they want to
+		// start over with a new word.
+		playWinSound();
+		Object[] options = {"New word",
+				"Same word"};
+		int n = JOptionPane.showOptionDialog(this,
+				"You won! Play again?",
+				"You won!",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+
+		resetGame(n);
+	}
+
+
+	public void showLostScreen() {
+		// Create a dialog window asking the user if they want to
+		// start over with a new word.
+		playLostSound();
+		Object[] options = {"New word",
+				"Same word"};
+		int n = JOptionPane.showOptionDialog(this,
+				"You Lost! Play again?",
+				"You Lost!",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+
+		resetGame(n);
+	}
+
+
+	private void resetGame(int n) {
+		if(n==0) {
+			// Reset game ui
+			configMainUI();
+			configGameUI(configState.newGame);
+		} else if(n==1) {
+			// Reset game ui
+			configMainUI();
+			configGameUI(configState.replayGame);
+		}
+	}
+
+
+	/**
+	 * A method to handle replaying the game
+	 */
+	private void replayPressed() {
+		// Create a dialog window asking the user if they want to
+		// start over with a new word.
+		Object[] options = {"New word",
+				"Same word",
+				"Cancel"};
+		int n = JOptionPane.showOptionDialog(this,
+				"How do you want to restart?",
+				"Replay",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[2]);
+
+
+		if(n==0) {
+			// Reset game ui
+			configMainUI();
+			configGameUI(configState.newGame);
+		} else if(n==1) {
+			// Reset game ui
+			configMainUI();
+			configGameUI(configState.replayGame);
+		}
+	}
+
+	/**
+	 * A method to handle saving the game
+	 */
+	private void quitPressed() {
+		boolean quitGame = true;
+		if(gState != gameState.start) {
+			// Create a dialog window asking the user if they want to
+			// save their progress with the current game.
+			Object[] options = {"Yes",
+					"No",
+					"Cancel"};
+			int n = JOptionPane.showOptionDialog(this,
+					"Would you like to save before quitting?",
+					"Quit",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					options,
+					options[2]);
+
+			if(n==0)
+				this.savePrevGame(true);
+			else if(n==2)
+				quitGame = false;
+
+
+		}
+
+		// See if we want to exit the game
+		if(quitGame)
+			this.dispose();
+	}
+
+
+
+	public HangmanDrawing getDrawing() {
+		return drawing;
+	}
     
     private void savePrevGame(boolean saveToFile) {
     	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses(),
@@ -518,7 +527,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	if(saveToFile)
     		saveState.saveGameState();
     }
-    
     public void updateHangman() {
     	if(difficulty == 0) {
     		drawing.updateHangman();
@@ -531,6 +539,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		drawing.updateHangman();
     	}
     }
+
     
     private void openThemeWindow() {
     	String[] themes = {"None", "Animals", "Cartoons and Superheroes", "Movies", "Science", "Sports"};
@@ -563,3 +572,4 @@ public class HangmanFrame extends JFrame implements ActionListener {
     }
     
 }
+
