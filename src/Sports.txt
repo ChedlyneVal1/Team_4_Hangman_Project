@@ -1,0 +1,163 @@
+Football
+Soccer
+Basketball
+Baseball
+Tennis
+Golf
+Hockey
+Cricket
+Rugby
+Volleyball
+Badminton
+Table Tennis
+Swimming
+Track and Field
+Marathon
+Wrestling
+Boxing
+Karate
+Gymnastics
+Cycling
+Archery
+Skiing
+Snowboarding
+Ice Skating
+Diving
+Synchronized Swimming
+Surfing
+Rowing
+Canoeing
+Sailing
+Horse Racing
+NASCAR
+Triathlon
+Pentathlon
+Decathlon
+Shot Put
+Javelin
+Discus
+High Jump
+Long Jump
+Pole Vault
+Track
+Stadium
+Arena
+Court
+Pitch
+Field
+Locker Room
+Referee
+Umpire
+Coach
+Athlete
+Quarterback
+Pitcher
+Batter
+Goalie
+Catcher
+Shortstop
+Championship
+League
+Tournament
+World Series
+Super Bowl
+Olympics
+Paralympics
+FIFA
+NFL
+NBA
+MLB
+NHL
+World Cup
+All Star Game
+Most Valuable Player
+Rookie
+Hall of Fame
+Home Run
+Touchdown
+Slam Dunk
+Hole in One
+Penalty Kick
+Free Throw
+Fast Break
+Power Play
+Overtime
+Sudden Death
+Tiebreaker
+Cheerleader
+Mascot
+Tailgate
+Huddle
+Team Spirit
+Comeback
+Underdog
+Michael Jordan
+Muhammad Ali
+Serena Williams
+Usain Bolt
+Cristiano Ronaldo
+Lionel Messi
+LeBron James
+Tom Brady
+Roger Federer
+Tiger Woods
+Michael Phelps
+Simone Biles
+Kobe Bryant
+Diego Maradona
+Wayne Gretzky
+Rafael Nadal
+Jackie Robinson
+Tom Daley
+Mia Hamm
+Derek Jeter
+Alex Morgan
+Michael Schumacher
+Abby Wambach
+Kareem Abdul Jabbar
+Jerry Rice
+Larry Bird
+Chris Froome
+Martina Hingis
+Ayrton Senna
+Michael Owen
+Chris Evert
+New York Yankees
+Los Angeles Lakers
+Dallas Cowboys
+New England Patriots
+Real Madrid
+Chicago Bulls
+Manchester United
+New York Giants
+Green Bay Packers
+Los Angeles Dodgers
+Miami Heat
+Boston Red Sox
+Pittsburgh Steelers
+Golden State Warriors
+Chicago Cubs
+Dallas Mavericks
+Manchester City
+Atlanta Braves
+Seattle Seahawks
+Toronto Raptors
+New York Knicks
+Philadelphia Eagles
+Los Angeles Rams
+New York Mets
+Houston Astros
+Baltimore Ravens
+Detroit Tigers
+Brooklyn Nets
+New Orleans Saints
+Boston Celtics
+Cleveland Cavaliers
+Denver Broncos
+Washington Nationals
+Minnesota Vikings
+Carolina Panthers
+Golden State Giants
+Oklahoma City Thunder
+San Diego Padres
+Arizona Cardinals
