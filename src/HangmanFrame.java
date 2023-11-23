@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private static JButton btnToggle;
     private static JButton btnReplay;
     private static JButton btnExit;
-    private static JButton btnDifficulty;
+    private static JButton btnOptions;
     private static JTextArea gameInstructions;
 
     private HangmanDrawing drawing;
@@ -53,8 +54,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
-    	
+
         if(e.getSource() == btnToggle){
             if (btnToggle.getText().equals("Play")){
             	
@@ -83,10 +83,28 @@ public class HangmanFrame extends JFrame implements ActionListener {
         } else if (e.getSource()== btnExit) {
         	//Ask if the user wants to save where they left off
         	this.quitPressed();
-        } else if (e.getSource() == btnDifficulty) {
-        	difficultySelection();
+        } else if (e.getSource() == btnOptions) {
+        	showOptions();
         }
 
+    }
+    
+    private void showOptions() {
+    	Object[] options = {"Difficulty", "Theme"};
+        var option = JOptionPane.showOptionDialog(this,
+                "Options",
+                "Options",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        
+        if(option == 0) {
+        	difficultySelection();
+        } else if (option == 1){
+        	openThemeWindow();
+        }
     }
     
     private void difficultySelection() {
@@ -126,12 +144,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnTogglePanel.setBackground(Color.WHITE);
         btnTogglePanel.add(btnToggle);
         btnTogglePanel.add(btnReplay);
-        btnTogglePanel.add(btnDifficulty);
+        btnTogglePanel.add(btnOptions);
         btnTogglePanel.add(btnExit);
         btnTogglePanel.setBounds(0, 0, 800, 50);
         btnTogglePanel.setVisible(true);
 	}
-
 
 	private void createLabels()
 	{
@@ -172,11 +189,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnExit.setVisible(true);
         btnExit.addActionListener(this);
         
-        btnDifficulty = new JButton("Difficulty");
-        btnDifficulty.setBounds(455, 15, 100, 30);
-        btnDifficulty.setVisible(true);
-        btnDifficulty.addActionListener(this);
-
+        btnOptions = new JButton("Options");
+        btnOptions.setBounds(455, 15, 100, 30);
+        btnOptions.setVisible(true);
+        btnOptions.addActionListener(this);
 	}
 
 	private void createTextArea()
@@ -204,15 +220,141 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
 		this.setResizable(false);
 		this.setVisible(true);
-	}
+    }
 
-	private void drawHangman()
-	{
-		drawing = new HangmanDrawing(this);
-		drawing.setBounds(0, 50, 350, 550);
-		drawing.setVisible(true);
-		this.add(drawing);
-	}
+    private void drawHangman()
+    {
+    	drawing = new HangmanDrawing(this);
+    	drawing.setBounds(0, 50, 350, 550);
+        drawing.setVisible(true);
+        this.add(drawing);
+    }
+
+    
+   /**
+    * A method to create the other objects needed for the game to function.
+    */
+
+    private void createComponents(String inWord, int numOfGuesses) {
+		drawHangman();
+        word = new HangmanWordPanel(this);
+    	input = new HangmanInput(this);
+    	
+    	if(inWord != "") {
+    		word.setWord(inWord);
+    	}
+    	
+    	if(numOfGuesses>0) {
+    		for(Character c : saveState.getCorrectlyGuessedLetters()) {
+    			word.checkGuess(c.toString());
+    		}
+    		for(String s : saveState.getIncorrectlyGuessedLetters()) {
+    			word.checkGuess(s);
+    		}
+    	}
+    }
+    
+    public void guessLetter(String s) {
+    	word.checkGuess(s);
+    }
+    
+
+    public boolean checkPrevSaveState() {
+    	String resumeQuestion;
+
+    	if(gState == gameState.pause)
+			 resumeQuestion = "Would you like to resume your paused game?";
+    	else
+	         resumeQuestion = "Would you like to resume your previously saved game?";
+    	
+    	// Create a dialog window asking the user if they want to
+    	// resume the previous game.
+    	Object[] options = {"Yes",
+    	                    "No"};
+    	int n = JOptionPane.showOptionDialog(this,
+    		resumeQuestion,
+    	    "Resume",
+    	    JOptionPane.YES_NO_OPTION,
+    	    JOptionPane.QUESTION_MESSAGE,
+    	    null,
+    	    options,
+    	    options[1]);  	
+    	
+		saveState.cleanup();
+    	
+    	return(n==0);
+    }
+    
+    public void updateIncorrectGuesses(ArrayList<String> s) {
+    	input.updateIncorrectGuesses(s);
+    }
+    
+    /**
+     * A method to remove the UI elements of the Game Screen and add the UI elements of the Main Screen.
+     */
+    private void configMainUI() {
+    	hideGameUI();
+    	addMainUI();
+    }
+    
+    /**
+     * A method to remove the UI elements of the Main Screen and add the UI elements of the Game Screen.
+     */
+    private void configGameUI(configState cfgState) {
+    	hideMainUI();
+    	
+    	String newWord = "";
+    	
+    	switch(cfgState) {
+    		case newGame:
+    			newWord = wordGen.genaratedWord();
+    			break;
+    		case replayGame:
+    			newWord = word.getWord();
+    			break;
+    		case resumeGame:
+    			newWord = saveState.getPrevWord();
+    			break;
+    		default:
+    	}
+
+    	int guesses = 0;
+    	
+    	if (cfgState==configState.resumeGame) {
+    		guesses = saveState.getNumOfGuesses();
+    		difficulty = saveState.getDifficulty();
+    		wordGen.loadTheme(saveState.getTheme());
+    	}
+    	
+    	createComponents(newWord, guesses);
+    	addGameUI();
+    }
+    
+    /**
+     * A method to add the UI elements to the Main Screen.
+     */
+    private void addMainUI() {
+    	createLabels();
+    	createButtons();
+        createPanels();
+        createTextArea();
+        configFrame();
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    /**
+     * A method to add the UI elements to the Game Screen.
+     */
+    private void addGameUI() {
+    	drawing.addUI();
+    	input.addUI();
+    	word.addUI();
+    	
+    	this.revalidate();
+    	this.repaint();
+    }
     
     /**
      * A method to remove the UI elements of the Main Screen.
@@ -221,7 +363,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	this.remove(gameStartPanel);
     	btnToggle.setText("Back");
         btnReplay.setVisible(true);
-        btnDifficulty.setVisible(false);
+        btnOptions.setVisible(false);
     }
     
     /**
@@ -234,7 +376,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
     	this.remove(btnTogglePanel);
         btnReplay.setVisible(false);
-        btnDifficulty.setVisible(true);
+        btnOptions.setVisible(true);
         drawing.resetHangman();
     }
     
@@ -244,132 +386,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		win();
     	}
     }
-    
-    
-	/**
-	 * A method to create the other objects needed for the game to function.
-	 */
-	private void createComponents(String inWord, int numOfGuesses) {
-		drawHangman();
-		word = new HangmanWordPanel(this);
-		input = new HangmanInput(this);
-
-		if(inWord != "") {
-			word.setWord(inWord);
-		}
-
-		if(numOfGuesses>0) {
-			for(Character c : saveState.getCorrectlyGuessedLetters()) {
-				word.checkGuess(c.toString());
-			}
-			for(String s : saveState.getIncorrectlyGuessedLetters()) {
-				word.checkGuess(s);
-			}
-		}
-	}
-
-	public void guessLetter(String s) {
-		word.checkGuess(s);
-	}
-
-
-	public boolean checkPrevSaveState() {
-		String resumeQuestion;
-
-		if(gState == gameState.pause)
-			resumeQuestion = "Would you like to resume your paused game?";
-		else
-			resumeQuestion = "Would you like to resume your previously saved game?";
-
-
-		// Create a dialog window asking the user if they want to
-		// resume the previous game.
-		Object[] options = {"Yes",
-				"No"};
-		int n = JOptionPane.showOptionDialog(this,
-				resumeQuestion,
-				"Resume",
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				options,
-				options[1]);
-
-		saveState.cleanup();
-
-		return(n==0);
-	}
-
-	public void updateIncorrectGuesses(ArrayList<String> s) {
-		input.updateIncorrectGuesses(s);
-	}
-
-
-	/**
-	 * A method to remove the UI elements of the Game Screen and add the UI elements of the Main Screen.
-	 */
-	private void configMainUI() {
-		hideGameUI();
-		addMainUI();
-	}
-
-	/**
-	 * A method to remove the UI elements of the Main Screen and add the UI elements of the Game Screen.
-	 */
-	private void configGameUI(configState cfgState) {
-		hideMainUI();
-
-		String newWord = "";
-
-		switch(cfgState) {
-			case newGame:
-				newWord = wordGen.genaratedWord();
-				break;
-			case replayGame:
-				newWord = word.getWord();
-				break;
-			case resumeGame:
-				newWord = saveState.getPrevWord();
-				break;
-			default:
-		}
-
-		int guesses = 0;
-
-		if (cfgState==configState.resumeGame) {
-			guesses = saveState.getNumOfGuesses();
-
-		}
-
-		createComponents(newWord, guesses);
-		addGameUI();
-	}
-
-	/**
-	 * A method to add the UI elements to the Main Screen.
-	 */
-	private void addMainUI() {
-		createLabels();
-		createButtons();
-		createPanels();
-		createTextArea();
-		configFrame();
-
-		this.revalidate();
-		this.repaint();
-	}
-
-	/**
-	 * A method to add the UI elements to the Game Screen.
-	 */
-	private void addGameUI() {
-		drawing.addUI();
-		input.addUI();
-		word.addUI();
-
-		this.revalidate();
-		this.repaint();
-	}
 	
 
 	public void playWinSound() {
@@ -500,18 +516,17 @@ public class HangmanFrame extends JFrame implements ActionListener {
 	}
 
 
-	private void savePrevGame(boolean saveToFile) {
-		saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses());
-		if(saveToFile)
-			saveState.saveGameState();
-	}
-
 
 	public HangmanDrawing getDrawing() {
 		return drawing;
 	}
-
     
+    private void savePrevGame(boolean saveToFile) {
+    	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses(),
+    			difficulty, wordGen.getCurTheme());
+    	if(saveToFile)
+    		saveState.saveGameState();
+    }
     public void updateHangman() {
     	if(difficulty == 0) {
     		drawing.updateHangman();
@@ -524,4 +539,37 @@ public class HangmanFrame extends JFrame implements ActionListener {
     		drawing.updateHangman();
     	}
     }
+
+    
+    private void openThemeWindow() {
+    	String[] themes = {"None", "Animals", "Cartoons and Superheroes", "Movies", "Science", "Sports"};
+
+    	Object selected = JOptionPane.showInputDialog(null, "Choose a theme", "Themes", JOptionPane.DEFAULT_OPTION, null, themes, "0");
+    	if ( selected != null ){//null if the user cancels.
+    		WordGeneration.Theme myTheme = WordGeneration.Theme.NONE;
+    		switch(selected.toString()) {
+    			case "None":
+    				myTheme = WordGeneration.Theme.NONE;
+    				break;
+    			case "Animals":
+    				myTheme = WordGeneration.Theme.ANIMALS;
+    				break;
+    			case "Cartoons and Superheroes":
+    				myTheme = WordGeneration.Theme.CARTOONS;
+    				break;
+    			case "Movies":
+    				myTheme = WordGeneration.Theme.MOVIES;
+    				break;
+    			case "Science":
+    				myTheme = WordGeneration.Theme.SCIENCE;
+    				break;
+    			case "Sports":
+    				myTheme = WordGeneration.Theme.SPORTS;
+    				break;
+    		}
+    		wordGen.loadTheme(myTheme);
+    	}
+    }
+    
 }
+
