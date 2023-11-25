@@ -66,13 +66,13 @@ public class HangmanWordPanel {
 
 		wordPanel = new JPanel();
 		wordPanel.setLayout(null);
-		wordPanel.setBackground(Color.LIGHT_GRAY);
+		wordPanel.setBackground(new Color(135,206,250));
 		wordPanel.setBounds(350, 50, 450, 350);
 		wordPanel.setVisible(true);
 
 		dashTextArea = new JTextArea();
 		dashTextArea.setBounds(50, 25, 350, 50);
-		dashTextArea.setBackground(Color.LIGHT_GRAY);
+		dashTextArea.setBackground(new Color(135,206,250));
 		wordPanel.add(dashTextArea);
 		dashTextArea.setText("Guess this word or phrase:");
 		dashTextArea.setFont(new Font("Serif", Font.BOLD, 20));

@@ -26,7 +26,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private int difficulty = 0; //0 = easy, 1 = medium, 2 = hard
 
 
-    private ImageIcon image = new ImageIcon("start.png");
+    private ImageIcon image = new ImageIcon("hangmanGameScreen.png");
     
     private boolean initialStart = true;
 
@@ -133,7 +133,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		//panel that appears on start up
 		gameStartPanel = new JPanel();
 		gameStartPanel.setLayout(null);
-		gameStartPanel.setBackground(Color.WHITE);
+		gameStartPanel.setBackground(new Color(135,206,250));
 		gameStartPanel.setBounds(0, 50, 800, 550);
 		gameStartPanel.setVisible(true);
 		gameStartPanel.add(gameStartLabel);
@@ -141,7 +141,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		   //panel that holds the label holding the buttons
         btnTogglePanel = new JPanel();
         btnTogglePanel.setLayout(null);
-        btnTogglePanel.setBackground(Color.WHITE);
+        btnTogglePanel.setBackground(new Color(70,144,200));
         btnTogglePanel.add(btnToggle);
         btnTogglePanel.add(btnReplay);
         btnTogglePanel.add(btnOptions);
@@ -154,10 +154,12 @@ public class HangmanFrame extends JFrame implements ActionListener {
 	{
 		//label that holds start game image
 		gameStartLabel = new JLabel();
-		gameStartLabel.setBounds(0, 0, 800, 550);
+		gameStartLabel.setBounds(0,0, 800, 500);
 		gameStartLabel.setVisible(true);
+		gameStartLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gameStartLabel.setVerticalAlignment(SwingConstants.CENTER);
 		gameStartLabel.setIcon(image);//image needs to be designed
-
+		
 		//label that will hold the buttons
 		//TODO I don't think any of this is necessary
 		//btnToggleLabel = new JLabel();
@@ -174,36 +176,41 @@ public class HangmanFrame extends JFrame implements ActionListener {
 
 	    //initiates button that toggles between Play and Back
         btnToggle = new JButton(playResumeButton);
-        btnToggle.setBounds(340, 15, 100, 30);
+        btnToggle.setBounds(225, 15, 100, 30);
         btnToggle.setVisible(true);
+        btnToggle.setBackground(new Color(135,206,250));
         btnToggle.addActionListener(this);
         
         //initiates button that Replays
         btnReplay = new JButton("Replay");
         btnReplay.setBounds(225, 15, 100, 30);
         btnReplay.setVisible(false);
+        btnReplay.setBackground(new Color(135,206,250));     
         btnReplay.addActionListener(this);
 
         btnExit = new JButton("Exit");
-        btnExit.setBounds(570, 15, 100, 30);
+        btnExit.setBounds(467, 15, 100, 30);
         btnExit.setVisible(true);
+        btnExit.setBackground(new Color(135,206,250));
         btnExit.addActionListener(this);
         
         btnOptions = new JButton("Options");
-        btnOptions.setBounds(455, 15, 100, 30);
+        btnOptions.setBounds(345, 15, 100, 30);
         btnOptions.setVisible(true);
+        btnOptions.setBackground(new Color(135,206,250));
         btnOptions.addActionListener(this);
 	}
 
 	private void createTextArea()
 	{
 		gameInstructions = new JTextArea();
-		gameInstructions.setBounds(25, 450, 800, 100);
+		gameInstructions.setBounds(25, 450, 750, 200);
+		gameInstructions.setBackground(new Color(173,216,230));
 		gameStartLabel.add(gameInstructions);
 		gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
 				"   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
 				"   player is hanged (and loses). ");
-		gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
+		gameInstructions.setFont(new Font("ariel", Font.ITALIC, 12));
 		gameInstructions.setEditable(false);
 		gameInstructions.setVisible(true);
 	}
@@ -226,6 +233,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     {
     	drawing = new HangmanDrawing(this);
     	drawing.setBounds(0, 50, 350, 550);
+    	drawing.setBackground(new Color(34,139,34));
         drawing.setVisible(true);
         this.add(drawing);
     }

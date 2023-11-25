@@ -72,7 +72,8 @@ public class HangmanInput implements ActionListener {
 		
 		inputPanel = new JPanel();
 		inputPanel.setLayout(null);
-		inputPanel.setBackground(Color.GRAY);
+		inputTextField.setBackground(new Color(240,255,255));
+		inputPanel.setBackground(new Color(210,105,30));
 		inputPanel.setBounds(350, 400, 450, 165);
 		inputPanel.setVisible(true);
 		inputLabel.add(incorrectGuesses);

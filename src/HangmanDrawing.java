@@ -29,12 +29,13 @@ public class HangmanDrawing extends JPanel {
 		//create the drawingLabel
 		drawingLabel = new JLabel();
 		drawingLabel.setBounds(0, 50, 350, 550);
+		//drawingLabel.setBackground(new Color(176,224,230));
 		drawingLabel.setVisible(true);		
 		
 		//create the drawingPanel
 		drawingPanel = new JPanel();
 		drawingPanel.setLayout(null);
-		drawingPanel.setBackground(Color.WHITE);
+		//drawingPanel.setBackground(new Color(173,255,47));
 		drawingPanel.setBounds(0, 50, 350, 550);
 		drawingPanel.setVisible(true);
 		drawingPanel.add(drawingLabel);
@@ -77,8 +78,9 @@ public class HangmanDrawing extends JPanel {
 	    @Override
 	    protected void paintComponent(Graphics g) {
 	        super.paintComponent(g);
-
+	        Graphics2D g2 = (Graphics2D) g;
 	        g.setColor(Color.BLACK);
+	        g2.setStroke(new BasicStroke(10));
 	        g.drawLine(10,10, 150, 10); //horizontal line
 	        g.drawLine(150,10, 150, 50);//small straight line
 	        g.drawLine(10,10, 10, 300); //vertical line
