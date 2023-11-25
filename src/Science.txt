@@ -18,7 +18,6 @@ Renewable Energy
 Space Exploration
 Satellite Technology
 Quantum Mechanics
-Bioinformatics
 Data Encryption
 Neural Networks
 Cryptocurrency
@@ -27,7 +26,6 @@ Stem Cells
 Cloning
 Solar Cells
 Dark Matter
-Superconductivity
 Nuclear Fusion
 Gravitational Waves
 Theoretical Physics
@@ -71,7 +69,6 @@ Quantum Biology
 Quantum Internet
 Regenerative Medicine
 Exoplanets
-Neuroprosthetics
 Quantum Nanoscience
 Space Elevator
 Quantum Circuits
@@ -97,7 +94,6 @@ Quantum Photonics
 Quantum Radar
 Smart Grid
 Quantum Phase Transitions
-Biometric Authentication
 Quantum Materials
 Space Colonization
 Quantum Acoustics
@@ -106,13 +102,11 @@ Synthetic Biology
 Quantum Software
 Brain Mapping
 Quantum Computing Languages
-Quantum Communication
 Quantum Gravity
 Satellite Internet
 Quantum Chemistry
 Quantum Encryption
 Solar Wind Power
-Quantum Optomechanics
 Synthetic Diamonds
 Gene Editing
 Space Debris Cleanup

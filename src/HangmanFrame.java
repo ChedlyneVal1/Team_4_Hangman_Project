@@ -23,7 +23,10 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private WordGeneration wordGen = WordGeneration.getInstance();
     private HangmanSaveState saveState;
     
-    private int difficulty = 0; //0 = easy, 1 = medium, 2 = hard
+    private int currDifficulty = 0; //0 = easy, 1 = medium, 2 = hard
+    private int newDifficulty = 0;
+    
+    WordGeneration.Theme newTheme = WordGeneration.Theme.NONE;
 
 
     private ImageIcon image = new ImageIcon("hangmanGameScreen.png");
@@ -109,7 +112,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     private void difficultySelection() {
     	Object[] options = {"Easy", "Medium", "Hard"};
-        difficulty = JOptionPane.showOptionDialog(this,
+        newDifficulty = JOptionPane.showOptionDialog(this,
                 "Select Difficulty:\n\nEasy - up to 5 incorrect guesses allowed.\n\nMedium - up to 2 incorrect guesses allowed.\n\nHard - only 1 incorrect guess allowed.",
                 "Difficulty Selection",
                 JOptionPane.YES_NO_CANCEL_OPTION,
@@ -161,7 +164,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		gameStartLabel.setIcon(image);//image needs to be designed
 		
 		//label that will hold the buttons
-		//TODO I don't think any of this is necessary
 		//btnToggleLabel = new JLabel();
 		//btnToggleLabel.setBounds(0, 0, 800, 50);
 		//btnToggleLabel.setOpaque(true);
@@ -315,6 +317,8 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
     	switch(cfgState) {
     		case newGame:
+    			currDifficulty = newDifficulty;
+    			wordGen.setCurTheme(newTheme);
     			newWord = wordGen.genaratedWord();
     			break;
     		case replayGame:
@@ -330,8 +334,11 @@ public class HangmanFrame extends JFrame implements ActionListener {
     	
     	if (cfgState==configState.resumeGame) {
     		guesses = saveState.getNumOfGuesses();
-    		difficulty = saveState.getDifficulty();
+    		currDifficulty = saveState.getDifficulty();
     		wordGen.loadTheme(saveState.getTheme());
+    	}
+    	else {
+    		currDifficulty = newDifficulty;
     	}
     	
     	createComponents(newWord, guesses);
@@ -540,14 +547,14 @@ public class HangmanFrame extends JFrame implements ActionListener {
     
     private void savePrevGame(boolean saveToFile) {
     	saveState.save(word.getWord(), word.getCorrectGuesses(), word.getIncorrectGuesses(),
-    			difficulty, wordGen.getCurTheme());
+    			currDifficulty, wordGen.getCurTheme());
     	if(saveToFile)
     		saveState.saveGameState();
     }
     public void updateHangman() {
-    	if(difficulty == 0) {
+    	if(currDifficulty == 0) {
     		drawing.updateHangman();
-    	} else if (difficulty == 1) {
+    	} else if (currDifficulty == 1) {
     		drawing.updateHangman();
     		drawing.updateHangman();
     	} else {
@@ -585,6 +592,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     				break;
     		}
     		wordGen.loadTheme(myTheme);
+    		newTheme = myTheme;
     	}
     }
     
