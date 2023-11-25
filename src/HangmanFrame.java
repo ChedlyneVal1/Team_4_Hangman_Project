@@ -26,7 +26,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
     private int difficulty = 0; //0 = easy, 1 = medium, 2 = hard
 
 
-    private ImageIcon image = new ImageIcon("start.png");
+    private ImageIcon image = new ImageIcon("startPic.png");
     
     private boolean initialStart = true;
 
@@ -158,12 +158,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		gameStartLabel.setVisible(true);
 		gameStartLabel.setIcon(image);//image needs to be designed
 
-		//label that will hold the buttons
-		//TODO I don't think any of this is necessary
-		//btnToggleLabel = new JLabel();
-		//btnToggleLabel.setBounds(0, 0, 800, 50);
-		//btnToggleLabel.setOpaque(true);
-		//btnToggleLabel.setVisible(true);
 	}
 
 
@@ -180,7 +174,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         
         //initiates button that Replays
         btnReplay = new JButton("Replay");
-        btnReplay.setBounds(225, 15, 100, 30);
+        btnReplay.setBounds(75, 15, 100, 30);
         btnReplay.setVisible(false);
         btnReplay.addActionListener(this);
 
@@ -190,7 +184,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
         btnExit.addActionListener(this);
         
         btnOptions = new JButton("Options");
-        btnOptions.setBounds(455, 15, 100, 30);
+        btnOptions.setBounds(75, 15, 100, 30);
         btnOptions.setVisible(true);
         btnOptions.addActionListener(this);
 	}
@@ -198,12 +192,13 @@ public class HangmanFrame extends JFrame implements ActionListener {
 	private void createTextArea()
 	{
 		gameInstructions = new JTextArea();
-		gameInstructions.setBounds(25, 450, 800, 100);
+		gameInstructions.setBounds(25, 442, 800, 100);
 		gameStartLabel.add(gameInstructions);
 		gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
 				"   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
 				"   player is hanged (and loses). ");
-		gameInstructions.setFont(new Font("ariel", Font.ITALIC, 14));
+		gameInstructions.setFont(new Font("ariel", Font.BOLD, 14));
+		//gameInstructions.setForeground(new Color(142, 87, 46));
 		gameInstructions.setEditable(false);
 		gameInstructions.setVisible(true);
 	}
@@ -405,7 +400,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		player.play(audioFilePath);
 	}
 	public void playIncorrectGuessSound() {
-		String audioFilePath = "incorrectGuess.wav";
+		String audioFilePath = "buzz.wav";
 		SoundGeneration player = new SoundGeneration();
 		player.play(audioFilePath);
 	}
@@ -523,8 +518,6 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		if(quitGame)
 			this.dispose();
 	}
-
-
 
 	public HangmanDrawing getDrawing() {
 		return drawing;

@@ -8,8 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.*;
 
-
-
 public class HangmanWordPanel {
 	private JPanel wordPanel;
 	private JLabel[] charLabel;
@@ -175,11 +173,6 @@ public class HangmanWordPanel {
 		for (char i : this.currentWord.toCharArray()) {
 			this.letters.add(i);
 		}
-	}
-
-
-	private void displayGuessedLetters() {
-		//TODO
 	}
 
 	/**
