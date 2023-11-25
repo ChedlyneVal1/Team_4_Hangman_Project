@@ -407,7 +407,16 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		SoundGeneration player = new SoundGeneration();
 		player.play(audioFilePath);
 	}
-
+	public void playCorrectGuessSound() {
+		String audioFilePath = "correctGuess.wav";
+		SoundGeneration player = new SoundGeneration();
+		player.play(audioFilePath);
+	}
+	public void playIncorrectGuessSound() {
+		String audioFilePath = "incorrectGuess.wav";
+		SoundGeneration player = new SoundGeneration();
+		player.play(audioFilePath);
+	}
 
 	public void win() {
 		// Create a dialog window asking the user if they want to

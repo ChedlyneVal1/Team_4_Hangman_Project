@@ -279,6 +279,7 @@ public class HangmanWordPanel {
 		String charStr;
 		boolean alreadyGuessed = false;
 		if(guessedLetters.contains(aGuess.charAt(0))){
+			hmf.playIncorrectGuessSound();
 			JOptionPane.showMessageDialog(this.hmf, "Letter " + aGuess + " has already been guessed!");
 			alreadyGuessed = true;
 		}
@@ -307,6 +308,7 @@ public class HangmanWordPanel {
 						if(!isCorrect)
 							correctlyGuessedLetters.add(aGuess.charAt(0));
 						isCorrect = true;
+						hmf.playCorrectGuessSound();
 						correctLetters.set(ltrIdx, true);
 					}
 								
@@ -315,6 +317,7 @@ public class HangmanWordPanel {
 			}
 			
 			if(!isCorrect) {
+				hmf.playIncorrectGuessSound();
 				incorrectGuessCheck(aGuess);
 			}
 		}
