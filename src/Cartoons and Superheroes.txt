@@ -44,7 +44,6 @@ Pokemon
 Yu Gi Oh
 Transformers
 Thundercats
-He Man and the Masters of the Universe
 She Ra Princess of Power
 G I Joe
 My Little Pony
@@ -63,7 +62,6 @@ Toy Story
 Finding Nemo
 The Little Mermaid
 Cinderella
-Snow White and the Seven Dwarfs
 Sleeping Beauty
 Wile E Coyote
 Road Runner
@@ -95,7 +93,6 @@ Gargoyles
 Chip n Dale Rescue Rangers
 The Real Ghostbusters
 Thundercats
-Voltron Defender of the Universe
 Transformers
 Sailor Moon
 Dragon Ball

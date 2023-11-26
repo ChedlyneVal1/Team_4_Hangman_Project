@@ -19,7 +19,6 @@ Panda
 Alligator
 Flamingo
 Sea Turtle
-Hummingbird
 Cobra
 Peacock
 Sea Lion
@@ -71,7 +70,6 @@ Tasmanian Devil
 Camel
 Warthog
 Snail
-Caterpillar
 Armadillo
 Pegasus
 Griffin

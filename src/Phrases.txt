@@ -19,7 +19,6 @@ Panda
 Alligator
 Flamingo
 Sea Turtle
-Hummingbird
 Cobra
 Peacock
 Sea Lion
@@ -71,7 +70,6 @@ Tasmanian Devil
 Camel
 Warthog
 Snail
-Caterpillar
 Armadillo
 Pegasus
 Griffin
@@ -155,7 +153,6 @@ Pokemon
 Yu Gi Oh
 Transformers
 Thundercats
-He Man and the Masters of the Universe
 She Ra Princess of Power
 G I Joe
 My Little Pony
@@ -174,7 +171,6 @@ Toy Story
 Finding Nemo
 The Little Mermaid
 Cinderella
-Snow White and the Seven Dwarfs
 Sleeping Beauty
 Wile E Coyote
 Road Runner
@@ -206,7 +202,6 @@ Gargoyles
 Chip n Dale Rescue Rangers
 The Real Ghostbusters
 Thundercats
-Voltron Defender of the Universe
 Transformers
 Sailor Moon
 Dragon Ball
@@ -374,7 +369,6 @@ Renewable Energy
 Space Exploration
 Satellite Technology
 Quantum Mechanics
-Bioinformatics
 Data Encryption
 Neural Networks
 Cryptocurrency
@@ -383,7 +377,6 @@ Stem Cells
 Cloning
 Solar Cells
 Dark Matter
-Superconductivity
 Nuclear Fusion
 Gravitational Waves
 Theoretical Physics
@@ -427,7 +420,6 @@ Quantum Biology
 Quantum Internet
 Regenerative Medicine
 Exoplanets
-Neuroprosthetics
 Quantum Nanoscience
 Space Elevator
 Quantum Circuits
@@ -453,7 +445,6 @@ Quantum Photonics
 Quantum Radar
 Smart Grid
 Quantum Phase Transitions
-Biometric Authentication
 Quantum Materials
 Space Colonization
 Quantum Acoustics
@@ -462,13 +453,11 @@ Synthetic Biology
 Quantum Software
 Brain Mapping
 Quantum Computing Languages
-Quantum Communication
 Quantum Gravity
 Satellite Internet
 Quantum Chemistry
 Quantum Encryption
 Solar Wind Power
-Quantum Optomechanics
 Synthetic Diamonds
 Gene Editing
 Space Debris Cleanup
@@ -650,3 +639,208 @@ Golden State Giants
 Oklahoma City Thunder
 San Diego Padres
 Arizona Cardinals
+Adult
+Aeroplane
+Air
+Airforce
+Airport
+Album
+Alphabet
+Apple
+Arm
+Army
+Baby
+Baby
+Backpack
+Balloon
+Banana
+Bank
+Barbecue
+Bathroom
+Bathtub
+Bed
+Bed
+Bee
+Bible
+Bible
+Bird
+Bomb
+Book
+Boss
+Bottle
+Bowl
+Box
+Boy
+Brain
+Bridge
+Butterfly
+Button
+Car
+Carpet
+Carrot
+Cave
+Chair
+Chief
+Child
+Chisel
+Church
+Church
+Circle
+Circus
+Circus
+Clock
+Clown
+Coffee
+Comet
+Compass
+Computer
+Crystal
+Cup
+Cycle
+Desk
+Diamond
+Dress
+Drill
+Drink
+Drum
+Dung
+Ears
+Earth
+Egg
+Elephant
+Eraser
+Explosive
+Eyes
+Family
+Fan
+Feather
+Festival
+Film
+Finger
+Fire
+Flower
+Foot
+Fork
+Freeway
+Fruit
+Fungus
+Game
+Garden
+Gas
+Gate
+Gemstone
+Girl
+Gloves
+God
+Grapes
+Guitar
+Hammer
+Hat
+Highway
+Horoscope
+Horse
+Hose
+Ice
+Insect
+Junk
+Kitchen
+Knife
+Leg
+Library
+Liquid
+Magnet
+Man
+Map
+Maze
+Meat
+Meteor
+Milk
+Mist
+Money
+Monster
+Mosquito
+Mouth
+Nail
+Navy
+Necklace
+Needle
+Onion
+Pants
+Parachute
+Passport
+Pebble
+Pendulum
+Pepper
+Perfume
+Pillow
+Plane
+Planet
+Pocket
+Potato
+Printer
+Prison
+Pyramid
+Radar
+Rainbow
+Record
+Rifle
+Ring
+Robot
+Rock
+Rocket
+Roof
+Room
+Rope
+Saddle
+Salt
+Sandpaper
+Sandwich
+Satellite
+School
+Sex
+Ship
+Shoes
+Shop
+Shower
+Signature
+Skeleton
+Slave
+Snail
+Software
+Solid
+Spectrum
+Sphere
+Spice
+Spiral
+Spoon
+Square
+Staircase
+Star
+Stomach
+Sun
+Surveyor
+Sword
+Table
+Tapestry
+Teeth
+Telescope
+Tiger
+Toilet
+Tongue
+Torch
+Torpedo
+Train
+Treadmill
+Triangle
+Tunnel
+Umbrella
+Vacuum
+Vampire
+Videotape
+Vulture
+Water
+Weapon
+Web
+Window
+Woman
+Worm
