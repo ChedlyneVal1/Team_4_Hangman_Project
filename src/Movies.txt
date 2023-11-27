@@ -18,7 +18,6 @@ The Great Gatsby
 The Avengers
 Gladiator
 The Departed
-Eternal Sunshine of the Spotless Mind
 The Revenant
 The Shape of Water
 The Wizard of Oz
@@ -43,7 +42,6 @@ The Social Network
 A Clockwork Orange
 The Great Escape
 There Will Be Blood
-The Curious Case of Benjamin Button
 The Good the Bad and the Ugly
 The Martian
 The Prestige
@@ -108,4 +106,3 @@ The Green Inferno
 The Red Turtle
 The Blue Planet
 The Color of Money
-The Secret Life of Walter Mitty

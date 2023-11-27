@@ -162,12 +162,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		gameStartLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		gameStartLabel.setVerticalAlignment(SwingConstants.CENTER);
 		gameStartLabel.setIcon(image);//image needs to be designed
-		
-		//label that will hold the buttons
-		//btnToggleLabel = new JLabel();
-		//btnToggleLabel.setBounds(0, 0, 800, 50);
-		//btnToggleLabel.setOpaque(true);
-		//btnToggleLabel.setVisible(true);
+
 	}
 
 
@@ -206,13 +201,14 @@ public class HangmanFrame extends JFrame implements ActionListener {
 	private void createTextArea()
 	{
 		gameInstructions = new JTextArea();
-		gameInstructions.setBounds(25, 450, 750, 200);
+		gameInstructions.setBounds(0, 450, 800, 300);
 		gameInstructions.setBackground(new Color(173,216,230));
 		gameStartLabel.add(gameInstructions);
-		gameInstructions.setText("Game Instructions: Hangman is a simple word guessing game. Players try to figure out an unknown word \n" +
-				"   or phrase by guessing letters. If too many letters, which do not appear in the word are guessed, the\n" +
-				"   player is hanged (and loses). ");
-		gameInstructions.setFont(new Font("ariel", Font.ITALIC, 12));
+		gameInstructions.setText("  Game Instructions: Hangman is a simple word guessing game. " +
+				"Players try to figure out an unknown word or phrase by \n " + " guessing letters. " +
+				"If too many letters, which do not appear in the word are guessed, the player" +
+				" is hanged (and loses). ");
+		gameInstructions.setFont(new Font("ariel", Font.BOLD, 13));
 		gameInstructions.setEditable(false);
 		gameInstructions.setVisible(true);
 	}
@@ -420,7 +416,7 @@ public class HangmanFrame extends JFrame implements ActionListener {
 		player.play(audioFilePath);
 	}
 	public void playIncorrectGuessSound() {
-		String audioFilePath = "incorrectGuess.wav";
+		String audioFilePath = "buzz.wav";
 		SoundGeneration player = new SoundGeneration();
 		player.play(audioFilePath);
 	}
